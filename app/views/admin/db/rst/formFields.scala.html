@@ -1,0 +1,164 @@
+@(action: String, thisResort: Option[models.Resort])
+
+@ifEdit(value: String) = {
+    @if(action.equals("Edit")) { value="@value" } else { "" }
+}
+
+
+@for(rst <- thisResort) {
+<fieldset class="resort-form-fieldset">
+
+    <legend align="center"><h3>@action Resort</h3></legend>
+    <table align="center" cellspacing="20">
+        <tr>
+            <td align="right">
+                <div class="resort-form-form" id="resortName_field_label">
+                    <div class="controls col-xs-offset-3 col-xs-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-resort"></span></span>
+                            <strong>Name</strong>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td align="center">
+                <div class="resort-form-form" id="resortName_field_value">
+                    <div class="controls col-xs-offset-3 col-xs-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-resort"></span></span>
+                            <input type="text" id="resortName" name="resortName" @ifEdit(rst.resortName) placeholder="e.g. Chamonix" class="form-control input-lg" required>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td align="right">
+                <div class="resort-form" id="resortCountry_field_label">
+                    <div class="controls col-xs-offset-3 col-xs-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-resort"></span></span>
+                            <strong>Country</strong>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td align="center">
+                <div class="resort-form" id="resortCountry_field_value">
+                    <div class="controls col-xs-offset-3 col-xs-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-resort"></span></span>
+                            <input type="text" id="resortCountry" name="resortCountry" @ifEdit(rst.resortCountry) placeholder="e.g. France" class="form-control input-lg" required>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td align="right">
+                <div class="resort-form" id="continent_field_label">
+                    <div class="controls col-xs-offset-3 col-xs-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-resort"></span></span>
+                            <strong>Continent</strong>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td align="center">
+                <div class="resort-form" id="mobile_field_value">
+                    <div class="controls col-xs-offset-3 col-xs-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-resort"></span></span>
+                            <input type="text" id="resortContinent" name="resortContinent" @ifEdit(rst.resortContinent) placeholder="e.g. Europe" class="form-control input-lg" required>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td align="right">
+                <div class="resort-form" id="email_field_label">
+                    <div class="controls col-xs-offset-3 col-xs-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-resort"></span></span>
+                            <strong>Country Prefix</strong>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td align="center">
+                <div class="resort-form" id="email_field_value">
+                    <div class="controls col-xs-offset-3 col-xs-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-resort"></span></span>
+                            <input type="text" id="resortCountryPrefix" name="resortCountryPrefix" @ifEdit(rst.resortCountryPrefix) placeholder="e.g. FR" class="form-control input-lg" required>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                <div class="resort-form" id="continent_field_label">
+                    <div class="controls col-xs-offset-3 col-xs-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-resort"></span></span>
+                            <strong>Miles</strong>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td align="center">
+                <div class="resort-form" id="mobile_field_value">
+                    <div class="controls col-xs-offset-3 col-xs-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-resort"></span></span>
+                            <input type="text" id="resortMiles" name="resortMiles" @ifEdit(rst.resortMiles.toString) placeholder="e.g. 203" class="form-control input-lg" required>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td align="right">
+                <div class="resort-form" id="continent_field_label">
+                    <div class="controls col-xs-offset-3 col-xs-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-resort"></span></span>
+                            <strong>ScoreBA</strong>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td align="center">
+                <div class="resort-form" id="mobile_field_value">
+                    <div class="controls col-xs-offset-3 col-xs-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-resort"></span></span>
+                            <input type="text" id="scoreBA" name="scoreBA" @ifEdit(rst.scoreBA.toString) placeholder="e.g. 0.5" class="form-control input-lg" required>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td align="right">
+                <div class="resort-form" id="continent_field_label">
+                    <div class="controls col-xs-offset-3 col-xs-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-resort"></span></span>
+                            <strong>ScoreSF</strong>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td align="center">
+                <div class="resort-form" id="mobile_field_value">
+                    <div class="controls col-xs-offset-3 col-xs-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-resort"></span></span>
+                            <input type="text" id="scoreSF" name="scoreSF" @ifEdit(rst.scoreSF.toString) placeholder="e.g. 0.5" class="form-control input-lg" required>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <div class="form-actions controls ynt-btn-xlarge">
+        <button type="submit" class="btn btn-primary ynt-btn-orange">@action</button>
+    </div>
+
+</fieldset>
+}

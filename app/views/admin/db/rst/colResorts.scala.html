@@ -1,0 +1,34 @@
+@(resorts: Seq[models.Resort])
+
+<div class="rst-collection" >
+    <fieldset>
+        <legend align="center"><h3>Resorts Collection</h3></legend>
+        <table cellspacing="20">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Country</th>
+                <th>Continent</th>
+                <th>Country Prefix</th>
+                <th>Miles</th>
+                <th>ScoreBA</th>
+                <th>ScoreSF</th>
+            </tr>
+            @for(resort <- resorts){
+            <tr>
+                <td>@resort.idAsString</td>
+                <td>@resort.resortName</td>
+                <td>@resort.resortCountry</td>
+                <td>@resort.resortContinent</td>
+                <td>@resort.resortCountryPrefix</td>
+                <td>@resort.resortMiles</td>
+                <td>@resort.scoreBA</td>
+                <td>@resort.scoreSF</td>
+
+                <td><a href="@routes.DatabaseController.rstEditIdx(resort.idAsBsonId)">edit</a></td>
+                <td><a href="@routes.DatabaseController.rstDelete(resort.idAsBsonId)">delete</a></td>
+            </tr>
+            }
+        </table>
+    </fieldset>
+</div>

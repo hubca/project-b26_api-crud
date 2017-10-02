@@ -1,0 +1,83 @@
+@import play.twirl.api.StringInterpolation
+@(action: String, thisWeather: Option[models.Weather])
+
+@ifEdit(value: String) = {
+@if(action.equals("Edit")) { value="@value" } else { "" }
+}
+
+
+@for(wth <- thisWeather) {
+<fieldset class="weather-form-fieldset">
+
+    <legend align="center"><h3>@action Weather</h3></legend>
+    <table align="center" cellspacing="20">
+        <tr>
+            <td align="right">
+                <div class="weather-form" id="wthRstId_label">
+                    <div class="controls col-xs-offset-3 col-xs-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-resort"></span></span>
+                            <strong>RstId</strong>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td align="center">
+                <div class="weather-form" id="wthRstId_field_value">
+                    <div class="controls col-xs-offset-3 col-xs-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-weather"></span></span>
+                            <input type="text" id="rstId" name="rstId" @ifEdit(wth.rstIdAsString) placeholder="e.g. 5971202e28fc72c960f0e5c5" class="form-control input-lg" required>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td align="right">
+                <div class="weather-form" id="date_field_label">
+                    <div class="controls col-xs-offset-3 col-xs-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-resort"></span></span>
+                            <strong>Date</strong>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td align="center">
+                <div class="weather-form" id="date_field_value">
+                    <div class="controls col-xs-offset-3 col-xs-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-weather"></span></span>
+                            <input type="text" id="date" name="date" @ifEdit(wth.dateAsString) placeholder="e.g. 07-09-2020" class="form-control input-lg" required>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td align="right">
+                <div class="resort-form" id="snowfall_field_label">
+                    <div class="controls col-xs-offset-3 col-xs-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-weather"></span></span>
+                            <strong>Snowfall (cm)</strong>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td align="center">
+                <div class="weather-form" id="snowfall_field_value">
+                    <div class="controls col-xs-offset-3 col-xs-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-weather"></span></span>
+                            <input type="text" id="snowfall" name="snowfall" @ifEdit(wth.snowfall.toString) placeholder="e.g. 5.2" class="form-control input-lg" required>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <div class="form-actions controls ynt-btn-xlarge">
+        <button type="submit" class="btn btn-primary ynt-btn-orange">@action</button>
+    </div>
+
+</fieldset>
+}

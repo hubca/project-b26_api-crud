@@ -1,0 +1,15 @@
+@import helper._
+@(resortForm: Form[models.ResortFormData], resorts: Seq[models.Resort])(implicit request: RequestHeader)
+
+@views.html.admin.main() {
+
+    @form(routes.DatabaseController.rstCreateDoc) {
+        @CSRF.formField
+
+        <form id="user-data-form" role="form" action='@routes.DatabaseController.rstCreateDoc' method="post" class="form-horizontal" align="center" autocomplete="off">
+            @formFields("Add", Some(resorts.head))
+        </form>
+
+    }
+    @colResorts(resorts)
+}

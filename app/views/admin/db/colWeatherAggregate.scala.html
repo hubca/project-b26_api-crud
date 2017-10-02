@@ -1,0 +1,25 @@
+@(weatherAggs : Seq[models.WeatherAggregate])
+
+<div class="weatherAggregate-display" >
+    <fieldset>
+        <legend align="center"><h3>Weather Aggregate</h3></legend>
+        <table cellspacing="20">
+            <tr>
+                <th>RstId</th>
+                <th>TotalSnowfall</th>
+                <th>AvgSnowfall</th>
+                <th>MinSnowfall</th>
+                <th>MaxSnowfall</th>
+            </tr>
+            @for(wAggs <- weatherAggs){
+            <tr>
+                <td>@wAggs.idAsString</td>
+                <td>@wAggs.totalSnowfall</td>
+                <td>@wAggs.avgSnowfall</td>
+                <td>@wAggs.minSnowfall</td>
+                <td>@wAggs.maxSnowfall</td>
+            </tr>
+            }
+        </table>
+    </fieldset>
+</div>

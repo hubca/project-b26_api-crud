@@ -1,0 +1,23 @@
+@(weathers: Seq[models.Weather])
+
+<div class="weather-display" >
+    <fieldset>
+        <legend align="center"><h3>Weather</h3></legend>
+        <table cellspacing="20">
+            <tr>
+                <th>Id</th>
+                <th>RstId</th>
+                <th>Date</th>
+                <th>Snowfall</th>
+            </tr>
+            @for(weather <- weathers){
+            <tr>
+                <td>@weather.idAsString</td>
+                <td>@weather.rstIdAsString</td>
+                <td>@weather.dateAsString</td>
+                <td>@weather.snowfall</td>
+            </tr>
+            }
+        </table>
+    </fieldset>
+</div>
