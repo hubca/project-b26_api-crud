@@ -1,0 +1,19 @@
+@(body: HtmlStream)
+
+<html lang="en">
+<head>
+    <title>title</title>
+    <link rel="stylesheet" media="screen" href="../assets/stylesheets/main.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/images/favicon.png">
+    <script src="../assets/javascripts/hello.js" type="text/javascript"></script>
+</head>
+<body>
+<h1>Resort Module</h1>
+
+<div class="resort">
+    <div id="alta-badia" class="rImage">
+        @body
+    </div>
+</div>
+</body>
+</html>
