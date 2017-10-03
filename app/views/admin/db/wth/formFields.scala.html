@@ -2,7 +2,7 @@
 @(action: String, thisWeather: Option[models.Weather])
 
 @ifEdit(value: String) = {
-@if(action.equals("Edit")) { value="@value" } else { "" }
+    @if(action.equals("Edit")) { value="@value" } else { "" }
 }
 
 

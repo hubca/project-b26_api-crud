@@ -3,25 +3,15 @@ package models
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.util.Date
-import javax.print.attribute.standard.MediaSize.ISO
-
-import akka.http.scaladsl.model.DateTime
-import org.joda.time.format.ISODateTimeFormat
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.libs.json._
 import reactivemongo.bson.BSONObjectID
 import reactivemongo.play.json.BSONFormats.BSONObjectIDFormat
 import play.api.data.format.Formats._
-import org.joda.time.{DateTime, DateTimeZone}
-import play.api.Logger
-
-/**
-  * Created by sambo on 17/08/2017.
-  */
 
 
-case class Weather(_id: Option[BSONObjectID] = None, rstId: Option[BSONObjectID] = None, date: Option[JsObject] = None, snowfall: Double = 0.0) extends CollectionClass[Weather] {
+case class Weather(_id: Option[BSONObjectID], rstId: Option[BSONObjectID], date: Option[JsObject], snowfall: Double) extends CollectionClass[Weather] {
 
   def idAsBsonId = _id.get//.getOrElse("")
   def idAsString = idAsBsonId.stringify
@@ -31,11 +21,6 @@ case class Weather(_id: Option[BSONObjectID] = None, rstId: Option[BSONObjectID]
 
   val format = new java.text.SimpleDateFormat("dd-MM-yyyy")
   def dateAsString = format.format(Date.from(Instant.ofEpochMilli(date.get.apply("$date").as[Long])))
-
-  // /  def dateAsDate = date.get
-//  def dateAsString = format.format(dateAsDate)
-
-//  def dateAsString2 = Date.from(Instant.ofEpochMilli(date.get.apply("$date").as[Long]))
 
 }
 
@@ -50,7 +35,7 @@ case class WeatherFormData(rstId: String, date: String, snowfall: Double)
 
 object Weather {
   implicit val weatherFormat = Json.format[Weather]
-  //val orderingByResortMiles: Ordering[Weather] = Ordering.by(e => e.resortMiles)
+  //val orderingByRstId: Ordering[Weather] = Ordering.by(e => e.rstId)
 }
 
 object WeatherAggregate {

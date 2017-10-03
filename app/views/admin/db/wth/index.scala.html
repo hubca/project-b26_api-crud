@@ -3,10 +3,10 @@
 
 @views.html.admin.main() {
 
-    @form(routes.DatabaseController.rstCreateDoc) {
+    @form(routes.DatabaseController.wthCreateDoc) {
         @CSRF.formField
 
-        <form id="user-data-form" role="form" action='@routes.DatabaseController.rstCreateDoc' method="post" class="form-horizontal" align="center" autocomplete="off">
+        <form id="user-data-form" role="form" action='@routes.DatabaseController.wthCreateDoc' method="post" class="form-horizontal" align="center" autocomplete="off">
             @formFields("Add", Some(weathers.head))
         </form>
     }

@@ -91,29 +91,28 @@ class DatabaseController @Inject() (cc: ControllerComponents)(val reactiveMongoA
     )
   }
 
-  /*
+  def wthEditIdx(id: BSONObjectID) = Action.async { implicit request: Request[AnyContent] =>
+
+    for {
+      wthLst <- wthService.getAllDocs
+      editWeatherOpt <- wthService.getDocById(id)
+    } yield {
+      Ok(views.html.admin.db.wth.edit(WeatherForm.form, wthLst, editWeatherOpt))
+    }
+
+  }
+
   def wthCreateDoc = Action.async { implicit request: Request[AnyContent] =>
 
     WeatherForm.form.bindFromRequest.fold(
       errorForm => Future.successful(Ok(views.html.admin.db.wth.index(errorForm, Seq.empty[Weather]))),
 
-
       data => {
 
-        val bsonRstId = BSONObjectID.parse(data.rstId).get
-        val jsObjectDate = Json.obj("$date" -> data.date)
-        val longDate = jsObjectDate.as[Long]
+        val oBsonRstId = Some(serviceClientDb.string2BSONObjectID(data.rstId))
+        val oJsObjectDate = Some(serviceClientDb.string2MongoDate(data.date, "date"))
 
-        //val dateAsDate = Date.from(Instant.ofEpochMilli(longDate))
-        val dateAsDate = serviceClientDb.convert2MongoDate(data.date, "date")
-
-
-
-
-        val dateAsString = format.format(Date.from(Instant.ofEpochMilli(date.get.apply("$date").as[Long])))
-        //val dateAsDate = Date.from(Instant.ofEpochMilli(data.date.get.apply("$date").as[Long]))
-
-        val newWeather = Weather(None, Some(bsonRstId), Some(dateAsDate), data.snowfall)
+        val newWeather = Weather(None, oBsonRstId, oJsObjectDate, data.snowfall)
 
         wthService.createDoc(newWeather).map(res =>
           Redirect(routes.DatabaseController.wthIdx())
@@ -123,17 +122,55 @@ class DatabaseController @Inject() (cc: ControllerComponents)(val reactiveMongoA
     )
 
   }
-*/
 
-//---- scoring updates & additions ----//
+  def wthDelete(id: BSONObjectID) = Action.async { implicit request: Request[AnyContent] =>
+
+    wthService.deleteDoc(id) map { res =>
+      Redirect(routes.DatabaseController.rstIdx())
+    }
+
+  }
+
+  def wthEdit(id: BSONObjectID) = Action.async { implicit request: Request[AnyContent] =>
+
+    val oId = Option(id)
+
+    ResortForm.form.bindFromRequest.fold(
+      errorForm => Future.successful(Ok(views.html.admin.db.rst.edit(errorForm, Seq.empty[Resort], Option.empty[Resort]))),
+      data => {
+        val editedResort = Resort(oId, data.resortName, data.resortCountry, data.resortContinent, data.resortCountryPrefix, data.resortMiles, data.scoreBA, data.scoreSF)
+
+        resortService.updateDoc(oId, editedResort).map(res =>
+          Redirect(routes.DatabaseController.rstEditIdx(id))
+        )
+      })
+
+  }
+
+  //---- aggregates ----//
+
+  def wthAgg(fromDate: String, toDate: String) = Action.async { implicit request: Request[AnyContent] =>
+    wthService.getWeatherAggregateCol(Some(fromDate), Some(toDate)).map(weather =>
+      Ok(views.html.admin.db.colWeatherAggregate(weather, Some(fromDate), Some(toDate)))
+    )
+  }
+
+
+  //---- scoring updates & additions ----//
+
   def showAllCollections = Action.async { implicit request: Request[AnyContent] =>
 
+//    val format = new java.text.SimpleDateFormat("dd-MM-yyyy")
+
+//    val fromDate = "01-01-1980"
+//    val toDate = format.format(new Date())
+
     for {
-      resortsCol <- resortService.getAllDocs
-      weatherCol <- wthService.getAllDocs
-      weatherAggCol <- resortService.getWeatherAggregateCol
+      rstCol <- resortService.getAllDocs
+      wthCol <- wthService.getAllDocs
+      wthAggCol <- wthService.getWeatherAggregateCol(None, None)
     } yield {
-      Ok(views.html.admin.db.allCollections(resortsCol, weatherCol, weatherAggCol))
+      Ok(views.html.admin.db.allCollections(rstCol, wthCol, wthAggCol))
     }
 
   }
@@ -144,13 +181,10 @@ class DatabaseController @Inject() (cc: ControllerComponents)(val reactiveMongoA
     )
   }
 
-  def weatherAgg = Action.async { implicit request: Request[AnyContent] =>
-    resortService.getWeatherAggregateCol.map(weather =>
-      Ok(views.html.admin.db.colWeatherAggregate(weather))
-    )
-  }
 
 /*
+  //---- examples, references of other useful methods ----//
+
   //Inserts the POST results into the database
   // curl -H "Content-Type: application/json" -X POST -d "{"""resortName""":"""LesArcs""","""resortCountry""":"""France""","""resortContinent""":"""Europe""","""resortCountryPrefix""":"""FR"""}" http://localhost:9000/resortInfo/add
   def createDocument = Action.async(playBodyParsers.json) { request =>
@@ -182,7 +216,5 @@ class DatabaseController @Inject() (cc: ControllerComponents)(val reactiveMongoA
     }
   }
   */
-
-
 
 }

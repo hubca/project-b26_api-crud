@@ -16,6 +16,10 @@
                 <td>@weather.rstIdAsString</td>
                 <td>@weather.dateAsString</td>
                 <td>@weather.snowfall</td>
+
+                <td><a href="@routes.DatabaseController.wthEditIdx(weather.idAsBsonId)">edit</a></td>
+                <td><a href="@routes.DatabaseController.wthDelete(weather.idAsBsonId)">delete</a></td>
+
             </tr>
             }
         </table>

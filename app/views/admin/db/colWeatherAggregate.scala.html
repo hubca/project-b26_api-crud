@@ -1,8 +1,13 @@
-@(weatherAggs : Seq[models.WeatherAggregate])
+@(weatherAggs : Seq[models.WeatherAggregate], fromDate: Option[String], toDate: Option[String])
+
+@ifDateRange = {
+    @if(fromDate != None) { (@fromDate - @toDate) } else { "" }
+}
+
 
 <div class="weatherAggregate-display" >
     <fieldset>
-        <legend align="center"><h3>Weather Aggregate</h3></legend>
+        <legend align="center"><h3>Weather Aggregate @ifDateRange</h3></legend>
         <table cellspacing="20">
             <tr>
                 <th>RstId</th>

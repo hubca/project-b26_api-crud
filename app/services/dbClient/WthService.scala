@@ -32,48 +32,45 @@ class WthService @Inject()(cc: ControllerComponents)(val reactiveMongoApi: React
 
   def getAllDocs: Future[Seq[Weather]] = serviceClientDb.getAllDocs[Weather]("weatherInfoStr")
 
+  def getDocById(id: BSONObjectID): Future[Option[Weather]] = serviceClientDb.getDocById[Weather]("weatherInfoStr", id)
 
-  def getWthCol: Future[Seq[Weather]] = {
 
-    wCollection.flatMap(
-      _.find(Json.obj())
-        .cursor[Weather](ReadPreference.primary)
-        .collect[List](Int.MaxValue, Cursor.FailOnError[List[Weather]]())
-    )
-
+  def getWeatherAggregateCol(oFromDate: Option[String], oToDate: Option[String]) = {
+    serviceClientDb.getCollection("weatherInfoStr").flatMap(res => getWeatherAggregate(res, oFromDate, oToDate))
   }
 
-  def getWeatherAggregateCol = {
-    wCollection.flatMap(res => getWeatherAggregate(res))
-  }
-
-  def getWeatherAggregate(col: JSONCollection) = {
-
-    //    wCollection.flatMap().aggregateWith(
-    //      Group(BSONString("$rstId"))( "totalSnowfall" -> SumField("snowfall")),
-    //      List(Match(BSONDocument("totalSnowfall" -> BSONDocument("$gte" -> 1)))))
+  def getWeatherAggregate(col: JSONCollection, oFromDate: Option[String], oToDate: Option[String]) = {
 
     import col.BatchCommands.AggregationFramework.{Group, Match, SumField, AvgField, MinField, MaxField}
 
-    /*
-    col.aggregate(Group(BSONDocument("state" -> "$state", "city" -> "$city"))(
-    "pop" -> SumField("population")),
-    List(Group(BSONString("$_id.state"))("avgCityPop" -> AvgField("pop")))).
-    map(_.documents)
-    */
-    col.aggregate(
-      Group(JsString("$rstId"))(
-        "totalSnowfall" -> SumField("snowfall"),
-        "avgSnowfall" -> AvgField("snowfall"),
-        "minSnowfall" -> MinField("snowfall"),
-        "maxSnowfall" -> MaxField("snowfall")
-      )//,
-      //List(Match(Json.obj("avgSnowfall" -> Json.obj("$gte" -> 1))))
-    )
-      .map(_.head[WeatherAggregate])
+    val aggr = oFromDate match {
+
+      case Some(_) =>
+        col.aggregate(
+          Match(serviceClientDb.getMongoDateRange(oFromDate.get, oToDate.get, "date")), //  Json.obj("date" -> Json.obj("$gte" -> fromDate, "$lt" -> toDate))
+          List(Group(JsString("$rstId"))(
+            "totalSnowfall" -> SumField("snowfall"),
+            "avgSnowfall" -> AvgField("snowfall"),
+            "minSnowfall" -> MinField("snowfall"),
+            "maxSnowfall" -> MaxField("snowfall")
+          ))
+        )
+
+      case None =>
+        col.aggregate(
+          Group(JsString("$rstId"))(
+            "totalSnowfall" -> SumField("snowfall"),
+            "avgSnowfall" -> AvgField("snowfall"),
+            "minSnowfall" -> MinField("snowfall"),
+            "maxSnowfall" -> MaxField("snowfall")
+          )
+        )
+
+    }
+
+    aggr.map(_.head[WeatherAggregate])
 
   }
-
 
   /*
   def triggerScoreSF: Future[Seq[Resort]] = {

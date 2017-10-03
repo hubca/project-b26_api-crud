@@ -3,54 +3,59 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                                   controllers.HomeController.index
+GET     /                                       controllers.HomeController.index
 # An example controller showing how to use dependency injection
-GET     /count                              controllers.CountController.count
+GET     /count                                  controllers.CountController.count
 # An example controller showing how to write asynchronous code
-GET     /message                            controllers.AsyncController.message
+GET     /message                                controllers.AsyncController.message
 
 # Admin db access
-GET      /admin/db/rst                      controllers.DatabaseController.rstIdx
-POST     /admin/db/rst/add                  controllers.DatabaseController.rstCreateDoc
-GET      /admin/db/rst/delete/:rstId        controllers.DatabaseController.rstDelete(rstId: reactivemongo.bson.BSONObjectID)
-GET      /admin/db/rst/editIdx/:rstId       controllers.DatabaseController.rstEditIdx(rstId: reactivemongo.bson.BSONObjectID)
-POST     /admin/db/rst/edit/:rstId          controllers.DatabaseController.rstEdit(rstId: reactivemongo.bson.BSONObjectID)
+GET      /admin/db/rst                          controllers.DatabaseController.rstIdx
+POST     /admin/db/rst/add                      controllers.DatabaseController.rstCreateDoc
+GET      /admin/db/rst/delete/:rstId            controllers.DatabaseController.rstDelete(rstId: reactivemongo.bson.BSONObjectID)
+GET      /admin/db/rst/editIdx/:rstId           controllers.DatabaseController.rstEditIdx(rstId: reactivemongo.bson.BSONObjectID)
+POST     /admin/db/rst/edit/:rstId              controllers.DatabaseController.rstEdit(rstId: reactivemongo.bson.BSONObjectID)
 
-GET      /admin/db/wth                      controllers.DatabaseController.wthIdx
+GET      /admin/db/wth                          controllers.DatabaseController.wthIdx
+POST     /admin/db/wth/add                      controllers.DatabaseController.wthCreateDoc
+GET      /admin/db/wth/delete/:wthId            controllers.DatabaseController.wthDelete(wthId: reactivemongo.bson.BSONObjectID)
+GET      /admin/db/wth/editIdx/:wthId           controllers.DatabaseController.wthEditIdx(wthId: reactivemongo.bson.BSONObjectID)
+POST     /admin/db/wth/edit/:wthId              controllers.DatabaseController.wthEdit(wthId: reactivemongo.bson.BSONObjectID)
 
-GET      /admin/db/triggerScoreBA           controllers.DatabaseController.triggerScoreBA
-GET      /admin/db/weatherAgg               controllers.DatabaseController.weatherAgg
-GET      /admin/db/allCollections           controllers.DatabaseController.showAllCollections
+GET      /admin/db/wthAgg/:from/:to             controllers.DatabaseController.wthAgg(from: String, to: String)
+GET      /admin/db/allCollections               controllers.DatabaseController.showAllCollections
+
+GET      /admin/db/triggerScoreBA               controllers.DatabaseController.triggerScoreBA
 
 
 # A mock controller mimicking action composition using I/O
-GET      /mock/:serviceName                 controllers.MockController.index(serviceName: String)
+GET      /mock/:serviceName                     controllers.MockController.index(serviceName: String)
 
 # Streaming data
-GET      /stream/resort-result              controllers.ResortResultsController.index(embed: Boolean = false)
+GET      /stream/resort-result                  controllers.ResortResultsController.index(embed: Boolean = false)
 
 # Controller demonstrating Json
-POST     /json/postJson                     controllers.JsonController.postJson
-GET      /json/readJson                     controllers.JsonController.readJson
-GET      /json/twoJsons                     controllers.JsonController.twoJsons(embed: Boolean = false)
+POST     /json/postJson                         controllers.JsonController.postJson
+GET      /json/readJson                         controllers.JsonController.readJson
+GET      /json/twoJsons                         controllers.JsonController.twoJsons(embed: Boolean = false)
 
 
 # -- NOT IN USE --
 # create documents in resortInfoStr collection with JSON post
-#POST     /db/resortInfo/add                controllers.DatabaseController.createDocument
+#POST     /db/resortInfo/add                    controllers.DatabaseController.createDocument
 
 # delete documents in resortInfoStr collection with JSON post
-#POST     /db/deleteResort2/:resortName     controllers.DatabaseController.deleteResort2(resortName: String)
+#POST     /db/deleteResort2/:resortName         controllers.DatabaseController.deleteResort2(resortName: String)
 
 # create documents in resortInfoStr collection with code in method
-#GET      /db/createFromCode                controllers.DatabaseController.createFromCode
+#GET      /db/createFromCode                    controllers.DatabaseController.createFromCode
 
-#POST     /db/resortInfo/bulk               controllers.DatabaseController.createBulkFromJson
-#POST     /db/resortInfo/bulkInsert         controllers.DatabaseController.createBulkFromJsonThree
-#GET      /db/resortsByPrefix               controllers.DatabaseController.findResortsByPrefix(resortInfoFuture: BSONCollection)
+#POST     /db/resortInfo/bulk                   controllers.DatabaseController.createBulkFromJson
+#POST     /db/resortInfo/bulkInsert             controllers.DatabaseController.createBulkFromJsonThree
+#GET      /db/resortsByPrefix                   controllers.DatabaseController.findResortsByPrefix(resortInfoFuture: BSONCollection)
 
-#GET      /db/findByName2                   controllers.DatabaseController.findByNameTwo(resortCountry: String, limit: Int)
+#GET      /db/findByName2                       controllers.DatabaseController.findByNameTwo(resortCountry: String, limit: Int)
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET      /assets/*file                      controllers.Assets.versioned(path="/public", file: Asset)
+GET      /assets/*file                          controllers.Assets.versioned(path="/public", file: Asset)

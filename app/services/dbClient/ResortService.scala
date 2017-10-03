@@ -28,7 +28,7 @@ class ResortService @Inject() (cc: ControllerComponents)(val reactiveMongoApi: R
 
   override lazy val parse: PlayBodyParsers = cc.parsers
 
-  def wCollection: Future[JSONCollection] = database.map(_.collection[JSONCollection]("weatherInfoStr"))
+  //def wCollection: Future[JSONCollection] = database.map(_.collection[JSONCollection]("weatherInfoStr"))
 
   def createDoc(newResort: Resort) = serviceClientDb.createDoc[Resort]("resortInfoStr", newResort)
 
@@ -64,18 +64,6 @@ class ResortService @Inject() (cc: ControllerComponents)(val reactiveMongoApi: R
 
   }
 
-
-  def getWeatherCol: Future[Seq[Weather]] = {
-
-    wCollection.flatMap(
-      _.find(Json.obj())
-        .cursor[Weather](ReadPreference.primary)
-        .collect[List](Int.MaxValue, Cursor.FailOnError[List[Weather]]())
-    )
-
-  }
-*/
-
   def getWeatherAggregateCol = {
     wCollection.flatMap(res => getWeatherAggregate(res))
   }
@@ -88,7 +76,7 @@ class ResortService @Inject() (cc: ControllerComponents)(val reactiveMongoApi: R
     col.aggregate(
       //Match(Json.obj("snowfall" -> Json.obj("$lte" -> 2))),
       //Match(Json.obj("date" -> Json.obj("$gte" -> Json.obj("$date" -> JsNumber(fromLongDate)), "$lt" -> Json.obj("$date" -> JsNumber(toLongDate))))),
-      Match(serviceClientDb.getMongoDateRange("2017-09-20", "2017-09-21", "date")),
+      Match(serviceClientDb.getMongoDateRange("10-09-2017", "21-09-2017", "date")),
       List(Group(JsString("$rstId"))(
         "totalSnowfall" -> SumField("snowfall"),
         "avgSnowfall" -> AvgField("snowfall"),
@@ -99,6 +87,7 @@ class ResortService @Inject() (cc: ControllerComponents)(val reactiveMongoApi: R
     .map(_.head[WeatherAggregate])
 
   }
+*/
 
   def triggerScoreBA: Future[Seq[Resort]] = {
 

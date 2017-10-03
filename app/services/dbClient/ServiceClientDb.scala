@@ -108,24 +108,26 @@ class ServiceClientDb @Inject() (cc: ControllerComponents)(val reactiveMongoApi:
 
 
   def getDateLong(date: String): Long = {
-    val format = new java.text.SimpleDateFormat("yyyy-MM-dd")
+    val format = new java.text.SimpleDateFormat("dd-MM-yyyy")//"yyyy-MM-dd"
     val parseDate: Date = format.parse(date)
     parseDate.getTime
   }
 
-  def convert2MongoDate(date: String, dateFieldName: String): JsObject = {
+  def string2MongoDate(date: String, dateFieldName: String): JsObject = {
     val longDate: Long = getDateLong(date)
     Json.obj(s"$$$dateFieldName" -> JsNumber(longDate))
   }
 
   def getMongoDateRange(fromDate: String, toDate: String, dateFieldName: String): JsObject = {
 
-    val fromDateJsObj = convert2MongoDate(fromDate, dateFieldName)
-    val toDateJsObj = convert2MongoDate(toDate, dateFieldName)
+    val fromDateJsObj = string2MongoDate(fromDate, dateFieldName)
+    val toDateJsObj = string2MongoDate(toDate, dateFieldName)
 
     Json.obj("date" -> Json.obj("$gte" -> fromDateJsObj, "$lt" -> toDateJsObj))
 
   }
+
+  def string2BSONObjectID(idString: String): BSONObjectID = BSONObjectID.parse(idString).get
 
   /*
 

@@ -2,19 +2,16 @@ package models
 
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.libs.json._
 import reactivemongo.bson.BSONObjectID
 import reactivemongo.play.json.BSONFormats.BSONObjectIDFormat
 import play.api.data.format.Formats._
 import play.api.libs.json.Json
-/**
-  * Created by sambo on 17/08/2017.
-  */
 
-class CollectionClass[+T]
+/* Created by sambo on 17/08/2017 */
+
+class CollectionClass[+T] // covariant (parent type) of all models mapping to Mongo JSON Collctions - http://blog.kamkor.me/Covariance-And-Contravariance-In-Scala/
 
 case class Resort(_id: Option[BSONObjectID] = None, resortName: String = "", resortCountry: String = "", resortContinent: String = "", resortCountryPrefix: String = "", resortMiles: Double = 0.0, scoreBA: Double = 0.0, scoreSF: Double = 0.0) extends CollectionClass[Resort] {
-  //def idAsString = _id.map(bson => bson.toString.split("\"")(1)).getOrElse("")
   def idAsBsonId = _id.get//.getOrElse("")
   def idAsString = idAsBsonId.stringify
 }
@@ -23,7 +20,6 @@ case class ResortFormData(resortName: String, resortCountry: String, resortConti
 
 object Resort {
   implicit val resortFormat = Json.format[Resort]
-  implicit val resortReads = Json.reads[Resort]
 
   val orderingByResortMiles: Ordering[Resort] = Ordering.by(e => e.resortMiles)
   val orderingByResortName: Ordering[Resort] = Ordering.by(e => e.resortName)

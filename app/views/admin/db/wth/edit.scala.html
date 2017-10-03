@@ -1,0 +1,19 @@
+@import helper._
+@(wthForm: Form[models.WeatherFormData], weathers: Seq[models.Weather], thisWeather: Option[models.Weather])(implicit request: RequestHeader)
+
+@views.html.admin.main() {
+
+@for(wth <- thisWeather) {
+
+    @form(routes.DatabaseController.wthEdit(wth.idAsBsonId)) {
+        @CSRF.formField
+
+        <form id="user-data-form" role="form" action='@routes.DatabaseController.wthEdit(wth.idAsBsonId)' method="post" class="form-horizontal" align="center" autocomplete="off">
+            @formFields("Edit", thisWeather)
+        </form>
+        }
+    }
+
+    @colWeather(weathers)
+
+}
