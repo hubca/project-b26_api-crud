@@ -1,7 +1,7 @@
 @(weatherAggs : Seq[models.WeatherAggregate], fromDate: Option[String], toDate: Option[String])
 
 @ifDateRange = {
-    @if(fromDate != None) { (@fromDate - @toDate) } else { "" }
+    @if(fromDate != None) { (@fromDate - @toDate) } else { }
 }
 
 

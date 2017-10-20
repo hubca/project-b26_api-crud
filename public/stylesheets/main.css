@@ -8,6 +8,10 @@
     font-family: Montserrat, Arial, Helvetica;
 }
 
+table tr td {
+    vertical-align: top;
+}
+
 .resort {
     color: #073c5e;
 }
@@ -59,7 +63,7 @@ form {
     padding-bottom: 1.5em;
 }
 
-.resort-form-fieldset h3 {
+.form-fieldset h3 {
     color: #F8741B;
 }
 

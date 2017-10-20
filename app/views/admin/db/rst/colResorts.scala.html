@@ -10,23 +10,23 @@
                 <th>Country</th>
                 <th>Continent</th>
                 <th>Country Prefix</th>
-                <th>Miles</th>
+                <th>Boarding Area (km2)</th>
                 <th>ScoreBA</th>
                 <th>ScoreSF</th>
             </tr>
             @for(resort <- resorts){
             <tr>
                 <td>@resort.idAsString</td>
-                <td>@resort.resortName</td>
-                <td>@resort.resortCountry</td>
-                <td>@resort.resortContinent</td>
-                <td>@resort.resortCountryPrefix</td>
-                <td>@resort.resortMiles</td>
+                <td>@resort.name</td>
+                <td>@resort.country</td>
+                <td>@resort.continent</td>
+                <td>@resort.countryPrefix</td>
+                <td>@resort.boardingArea_km2</td>
                 <td>@resort.scoreBA</td>
                 <td>@resort.scoreSF</td>
 
-                <td><a href="@routes.DatabaseController.rstEditIdx(resort.idAsBsonId)">edit</a></td>
-                <td><a href="@routes.DatabaseController.rstDelete(resort.idAsBsonId)">delete</a></td>
+                <td><a href="@routes.AdminCtr.rstEditIdx(resort.idAsBsonId)">edit</a></td>
+                <td><a href="@routes.AdminCtr.rstDelete(resort.idAsBsonId)">delete</a></td>
             </tr>
             }
         </table>

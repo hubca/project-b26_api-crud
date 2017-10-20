@@ -5,10 +5,10 @@
 
 @for(wth <- thisWeather) {
 
-    @form(routes.DatabaseController.wthEdit(wth.idAsBsonId)) {
+    @form(routes.AdminCtr.wthEdit(wth.idAsBsonId)) {
         @CSRF.formField
 
-        <form id="user-data-form" role="form" action='@routes.DatabaseController.wthEdit(wth.idAsBsonId)' method="post" class="form-horizontal" align="center" autocomplete="off">
+        <form id="user-data-form" role="form" action='@routes.AdminCtr.wthEdit(wth.idAsBsonId)' method="post" class="form-horizontal" align="center" autocomplete="off">
             @formFields("Edit", thisWeather)
         </form>
         }

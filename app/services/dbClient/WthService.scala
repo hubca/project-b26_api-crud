@@ -20,26 +20,26 @@ class WthService @Inject()(cc: ControllerComponents)(val reactiveMongoApi: React
 
   override lazy val parse: PlayBodyParsers = cc.parsers
 
-  def wCollection: Future[JSONCollection] = database.map(_.collection[JSONCollection]("weatherInfoStr"))
+  protected val collectionName = "weatherInfoStr"
 
-  def createDoc(newWeather: Weather) = serviceClientDb.createDoc[Weather]("weatherInfoStr", newWeather)
+  def createDoc(newWeather: Weather) = serviceClientDb.createDoc[Weather](collectionName, newWeather)
 
-  def deleteDoc(id: BSONObjectID) = serviceClientDb.deleteDoc("weatherInfoStr", id)
+  def deleteDoc(id: BSONObjectID) = serviceClientDb.deleteDoc(collectionName, id)
 
-  def updateDoc(oId: Option[BSONObjectID], editedWeather: Weather): Future[Result] = serviceClientDb.updateDoc[Weather]("weatherInfoStr", editedWeather, oId)
+  def updateDoc(oId: Option[BSONObjectID], editedWeather: Weather): Future[Result] = serviceClientDb.updateDoc[Weather](collectionName, editedWeather, oId)
 
-  def updateOneField(id: Option[BSONObjectID], field: JsObject): Future[Result] = serviceClientDb.updateOneField("weatherInfoStr", id, field)
+  def updateOneField(id: Option[BSONObjectID], field: JsObject): Future[Result] = serviceClientDb.updateOneField(collectionName, id, field)
 
-  def getAllDocs: Future[Seq[Weather]] = serviceClientDb.getAllDocs[Weather]("weatherInfoStr")
+  def getAllDocs: Future[Seq[Weather]] = serviceClientDb.getAllDocs[Weather](collectionName)
 
-  def getDocById(id: BSONObjectID): Future[Option[Weather]] = serviceClientDb.getDocById[Weather]("weatherInfoStr", id)
+  def getDocById(id: BSONObjectID): Future[Option[Weather]] = serviceClientDb.getDocById[Weather](collectionName, id)
 
 
-  def getWeatherAggregateCol(oFromDate: Option[String], oToDate: Option[String]) = {
-    serviceClientDb.getCollection("weatherInfoStr").flatMap(res => getWeatherAggregate(res, oFromDate, oToDate))
+  def getWeatherAggregateCol(oFromDate: Option[String], oToDate: Option[String]): Future[Seq[WeatherAggregate]] = {
+    serviceClientDb.getCollection(collectionName).flatMap(res => getWeatherAggregate(res, oFromDate, oToDate))
   }
 
-  def getWeatherAggregate(col: JSONCollection, oFromDate: Option[String], oToDate: Option[String]) = {
+  def getWeatherAggregate(col: JSONCollection, oFromDate: Option[String], oToDate: Option[String]): Future[Seq[WeatherAggregate]] = {
 
     import col.BatchCommands.AggregationFramework.{Group, Match, SumField, AvgField, MinField, MaxField}
 
@@ -72,15 +72,4 @@ class WthService @Inject()(cc: ControllerComponents)(val reactiveMongoApi: React
 
   }
 
-  /*
-  def triggerScoreSF: Future[Seq[Resort]] = {
-
-
-    // 1) get list of resort ids & averages for time period
-    // 2) loop through rst collection and
-    val docs = getResortsCol.map(r => r.sorted(Resort.orderingByResortMiles))
-    updateScoreBA(docs)
-    docs
-  }
-*/
 }

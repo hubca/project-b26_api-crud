@@ -17,9 +17,10 @@ import reactivemongo.api.{Cursor, ReadPreference}
 import reactivemongo.bson.{BSONDocument, BSONObjectID, BSONString}
 import reactivemongo.play.json._
 import reactivemongo.play.json.collection.JSONCollection
-import models.{Resort, _}
+import models.{LocalIata, Resort, ResortAggregate, WeatherAggregate}
 import play.api.data.Field
 import play.api.libs.json
+import play.modules.reactivemongo.json.JSONSerializationPack.Writer
 import reactivemongo.api.collections.bson.BSONCollection
 import reactivemongo.core.commands.{Ascending, Group, Match, SumField}
 
@@ -28,20 +29,49 @@ class ResortService @Inject() (cc: ControllerComponents)(val reactiveMongoApi: R
 
   override lazy val parse: PlayBodyParsers = cc.parsers
 
-  //def wCollection: Future[JSONCollection] = database.map(_.collection[JSONCollection]("weatherInfoStr"))
+  protected val collectionName = "resortInfoStr"
 
-  def createDoc(newResort: Resort) = serviceClientDb.createDoc[Resort]("resortInfoStr", newResort)
+  def createDoc(newResort: Resort) = serviceClientDb.createDoc[Resort](collectionName, newResort)
 
-  def deleteDoc(id: BSONObjectID) = serviceClientDb.deleteDoc("resortInfoStr", id)
+  def deleteDoc(id: BSONObjectID) = serviceClientDb.deleteDoc(collectionName, id)
 
-  def updateDoc(oId: Option[BSONObjectID], editedResort: Resort): Future[Result] = serviceClientDb.updateDoc[Resort]("resortInfoStr", editedResort, oId)
+  def updateDoc(oId: Option[BSONObjectID], editedResort: Resort): Future[Result] = serviceClientDb.updateDoc[Resort](collectionName, editedResort, oId)
 
-  def updateOneField(id: Option[BSONObjectID], field: JsObject): Future[Result] = serviceClientDb.updateOneField("resortInfoStr", id, field)
+  /*
+  def updateDoc2(oId: Option[BSONObjectID], editedResort: Resort)(implicit writes: Writer[Resort]): Future[Result] = {
 
-  def getAllDocs: Future[Seq[Resort]] = serviceClientDb.getAllDocs[Resort]("resortInfoStr")
+    serviceClientDb.getCollection(collectionName).flatMap(coll =>
+      coll.update(oId, Resort).map {
+        lastError =>
+          //logger.debug(s"Successfully updated with LastError: $lastError")
+          Created(s"Document from $collectionName successfully updated")
+      }
+    )
 
-  def getDocById(id: BSONObjectID): Future[Option[Resort]] = serviceClientDb.getDocById[Resort]("resortInfoStr", id)
+  }
+*/
+  def updateOneField(id: Option[BSONObjectID], field: JsObject): Future[Result] = serviceClientDb.updateOneField(collectionName, id, field)
 
+  def getAllDocs: Future[Seq[Resort]] = serviceClientDb.getAllDocs[Resort](collectionName)
+
+  def getDocById(id: BSONObjectID): Future[Option[Resort]] = serviceClientDb.getDocById[Resort](collectionName, id)
+
+
+
+  def getLocalIataAggregateCol = {
+    serviceClientDb.getCollection(collectionName).flatMap(res => getLocalIataAggregate(res))
+  }
+
+  def getLocalIataAggregate(col: JSONCollection) = {
+
+    import col.BatchCommands.AggregationFramework.{UnwindField}
+
+    col.aggregate(UnwindField("localIataArr_e")).map(_.head[ResortAggregate])
+
+  }
+
+
+  //def getAllLocalIataDocs: Future[Seq[Resort]] = serviceClientDb.getAllDocs[Resort](collectionName)
 
   /*
   def add(resort: Resort) = {
@@ -89,11 +119,12 @@ class ResortService @Inject() (cc: ControllerComponents)(val reactiveMongoApi: R
   }
 */
 
-  def triggerScoreBA: Future[Seq[Resort]] = {
+  /*
+  def triggerScoreBA: Unit = {
 
-    val docs = getAllDocs.map(r => r.sorted(Resort.orderingByResortMiles))
+    val docs = getAllDocs.map(r => r.sorted(Resort.orderingByBoardingArea))
     updateScoreBA(docs)
-    docs
+    // todo add success/failure message
 
   }
 
@@ -101,18 +132,20 @@ class ResortService @Inject() (cc: ControllerComponents)(val reactiveMongoApi: R
 
     docs.map(r =>
       r.map(r2 =>
-        //updateAllFields(r2._id, Resort(r2._id, r2.resortName, r2.resortCountry, r2.resortContinent, r2.resortCountryPrefix, r2.resortMiles, getScoreBA(r2.resortMiles, r.last.resortMiles, r.head.resortMiles), r2.scoreSF))
-        updateOneField(r2._id, Json.obj("scoreBA" -> getScore("miles", r2.resortMiles, r.last.resortMiles, r.head.resortMiles)))
+        updateOneField(r2._id, Json.obj("scoreBA" -> getScore("ba", r2.boardingArea_km2, r.last.boardingArea_km2, r.head.boardingArea_km2)))
       )
     )
+    docs
 
   }
 
+
+  // todo - aggregate and score weather data
   def triggerScoreSF: Future[Seq[Resort]] = {
 
     // 1) get list of resort ids & averages for time period
     // 2) loop through rst collection and
-    val docs = getAllDocs.map(r => r.sorted(Resort.orderingByResortMiles))
+    val docs = getAllDocs.map(r => r.sorted(Resort.orderingByBoardingArea))
     updateScoreBA(docs)
     docs
     /*
@@ -144,7 +177,7 @@ class ResortService @Inject() (cc: ControllerComponents)(val reactiveMongoApi: R
 
   def getScore(attr: String, xThis: Double, xMax: Double, xMin: Double): Double = attr match {
 
-    case "miles" => calculateFixedScore("low", xThis, xMax, xMin)
+    case "miles" => calculateFixedScore("low", xThis, xMax, xMin) // e.g. ba
     case "_" => calculateFixedScore("high", xThis, xMax, xMin)
     // ba, sf, bg, fm, lc, gr, ad, tt, nl, fd, pr
 
@@ -158,6 +191,7 @@ class ResortService @Inject() (cc: ControllerComponents)(val reactiveMongoApi: R
 
   }
   //def calculateFixedScore2(xThis: Double, xMax: Double, xMin: Double): Double = (1 / (xMax - xMin)) * (xMax - xThis)
+*/
 
 /*
   def updateScore(x: String): Double = x match {

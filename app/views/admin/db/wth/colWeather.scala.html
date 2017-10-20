@@ -2,7 +2,7 @@
 
 <div class="weather-display" >
     <fieldset>
-        <legend align="center"><h3>Weather</h3></legend>
+        <legend align="center"><h3>Weather Collection</h3></legend>
         <table cellspacing="20">
             <tr>
                 <th>Id</th>
@@ -17,8 +17,8 @@
                 <td>@weather.dateAsString</td>
                 <td>@weather.snowfall</td>
 
-                <td><a href="@routes.DatabaseController.wthEditIdx(weather.idAsBsonId)">edit</a></td>
-                <td><a href="@routes.DatabaseController.wthDelete(weather.idAsBsonId)">delete</a></td>
+                <td><a href="@routes.AdminCtr.wthEditIdx(weather.idAsBsonId)">edit</a></td>
+                <td><a href="@routes.AdminCtr.wthDelete(weather.idAsBsonId)">delete</a></td>
 
             </tr>
             }

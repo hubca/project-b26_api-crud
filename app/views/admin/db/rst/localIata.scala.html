@@ -1,0 +1,27 @@
+@(resortAggregate: Seq[models.ResortAggregate])(implicit request: RequestHeader)
+
+<div class="collection" >
+    <fieldset>
+        <legend align="center"><h3>Local Iata (Resorts Collection)</h3></legend>
+        <table cellspacing="20">
+            <tr>
+                <th>Resort Id</th>
+                <th>Resort Name</th>
+                <th>Iata Code</th>
+                <th>Distance<br />(km)</th>
+                <th>Travel Time<br />(mins)</th>
+                <th>Costs<br />(USD)</th>
+            </tr>
+                @for(rAgg <- resortAggregate){
+                    <tr>
+                        <td>@rAgg.idAsString</td>
+                        <td>@rAgg.name</td>
+                        <td>@rAgg.localIataArr_e.iataCode</td>
+                        <td>@rAgg.localIataArr_e.distance_km</td>
+                        <td>@rAgg.localIataArr_e.travelTime_mins</td>
+                        <td>@rAgg.localIataArr_e.roundTripCosts_usd</td>
+                    </tr>
+                }
+        </table>
+    </fieldset>
+</div>

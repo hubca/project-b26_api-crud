@@ -10,22 +10,30 @@ GET     /count                                  controllers.CountController.coun
 GET     /message                                controllers.AsyncController.message
 
 # Admin db access
-GET      /admin/db/rst                          controllers.DatabaseController.rstIdx
-POST     /admin/db/rst/add                      controllers.DatabaseController.rstCreateDoc
-GET      /admin/db/rst/delete/:rstId            controllers.DatabaseController.rstDelete(rstId: reactivemongo.bson.BSONObjectID)
-GET      /admin/db/rst/editIdx/:rstId           controllers.DatabaseController.rstEditIdx(rstId: reactivemongo.bson.BSONObjectID)
-POST     /admin/db/rst/edit/:rstId              controllers.DatabaseController.rstEdit(rstId: reactivemongo.bson.BSONObjectID)
+GET      /admin/db/rst                          controllers.AdminCtr.rstIdx
+POST     /admin/db/rst/add                      controllers.AdminCtr.rstCreateDoc
+GET      /admin/db/rst/delete/:rstId            controllers.AdminCtr.rstDelete(rstId: reactivemongo.bson.BSONObjectID)
+GET      /admin/db/rst/editIdx/:rstId           controllers.AdminCtr.rstEditIdx(rstId: reactivemongo.bson.BSONObjectID)
+POST     /admin/db/rst/edit/:rstId              controllers.AdminCtr.rstEdit(rstId: reactivemongo.bson.BSONObjectID)
 
-GET      /admin/db/wth                          controllers.DatabaseController.wthIdx
-POST     /admin/db/wth/add                      controllers.DatabaseController.wthCreateDoc
-GET      /admin/db/wth/delete/:wthId            controllers.DatabaseController.wthDelete(wthId: reactivemongo.bson.BSONObjectID)
-GET      /admin/db/wth/editIdx/:wthId           controllers.DatabaseController.wthEditIdx(wthId: reactivemongo.bson.BSONObjectID)
-POST     /admin/db/wth/edit/:wthId              controllers.DatabaseController.wthEdit(wthId: reactivemongo.bson.BSONObjectID)
+GET      /admin/db/rst/li                       controllers.AdminCtr.rstLocalIataAgg
 
-GET      /admin/db/wthAgg/:from/:to             controllers.DatabaseController.wthAgg(from: String, to: String)
-GET      /admin/db/allCollections               controllers.DatabaseController.showAllCollections
+GET      /admin/db/wth                          controllers.AdminCtr.wthIdx
+POST     /admin/db/wth/add                      controllers.AdminCtr.wthCreateDoc
+GET      /admin/db/wth/delete/:wthId            controllers.AdminCtr.wthDelete(wthId: reactivemongo.bson.BSONObjectID)
+GET      /admin/db/wth/editIdx/:wthId           controllers.AdminCtr.wthEditIdx(wthId: reactivemongo.bson.BSONObjectID)
+POST     /admin/db/wth/edit/:wthId              controllers.AdminCtr.wthEdit(wthId: reactivemongo.bson.BSONObjectID)
 
-GET      /admin/db/triggerScoreBA               controllers.DatabaseController.triggerScoreBA
+GET      /admin/db/ngh                          controllers.AdminCtr.nghIdx
+POST     /admin/db/ngh/add                      controllers.AdminCtr.nghCreateDoc
+GET      /admin/db/ngh/delete/:nghId            controllers.AdminCtr.nghDelete(nghId: reactivemongo.bson.BSONObjectID)
+GET      /admin/db/ngh/editIdx/:nghId           controllers.AdminCtr.nghEditIdx(nghId: reactivemongo.bson.BSONObjectID)
+POST     /admin/db/ngh/edit/:nghId              controllers.AdminCtr.nghEdit(nghId: reactivemongo.bson.BSONObjectID)
+
+GET      /admin/db/wthAgg/:from/:to             controllers.AdminCtr.wthAgg(from: String, to: String)
+GET      /admin/db/allCollections               controllers.AdminCtr.showAllCollections
+
+GET      /admin/db/updateScore/:cat             controllers.UpdateScoresCtr.updateScore(cat: String)
 
 
 # A mock controller mimicking action composition using I/O
@@ -42,19 +50,19 @@ GET      /json/twoJsons                         controllers.JsonController.twoJs
 
 # -- NOT IN USE --
 # create documents in resortInfoStr collection with JSON post
-#POST     /db/resortInfo/add                    controllers.DatabaseController.createDocument
+#POST     /db/resortInfo/add                    controllers.AdminCtr.createDocument
 
 # delete documents in resortInfoStr collection with JSON post
-#POST     /db/deleteResort2/:resortName         controllers.DatabaseController.deleteResort2(resortName: String)
+#POST     /db/deleteResort2/:resortName         controllers.AdminCtr.deleteResort2(resortName: String)
 
 # create documents in resortInfoStr collection with code in method
-#GET      /db/createFromCode                    controllers.DatabaseController.createFromCode
+#GET      /db/createFromCode                    controllers.AdminCtr.createFromCode
 
-#POST     /db/resortInfo/bulk                   controllers.DatabaseController.createBulkFromJson
-#POST     /db/resortInfo/bulkInsert             controllers.DatabaseController.createBulkFromJsonThree
-#GET      /db/resortsByPrefix                   controllers.DatabaseController.findResortsByPrefix(resortInfoFuture: BSONCollection)
+#POST     /db/resortInfo/bulk                   controllers.AdminCtr.createBulkFromJson
+#POST     /db/resortInfo/bulkInsert             controllers.AdminCtr.createBulkFromJsonThree
+#GET      /db/resortsByPrefix                   controllers.AdminCtr.findResortsByPrefix(resortInfoFuture: BSONCollection)
 
-#GET      /db/findByName2                       controllers.DatabaseController.findByNameTwo(resortCountry: String, limit: Int)
+#GET      /db/findByName2                       controllers.AdminCtr.findByNameTwo(resortCountry: String, limit: Int)
 
 
 # Map static resources from the /public folder to the /assets URL path
