@@ -1,0 +1,7 @@
+@(colNum: String, divClass: String)(content: Html)
+
+<fieldset class="col-lg-@colNum">
+    @views.html.generic.div("well") {
+        @content
+    }
+</fieldset>

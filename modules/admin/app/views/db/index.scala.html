@@ -1,0 +1,29 @@
+@import helper._
+
+@(collName: String)(formHtml: Html, collectionHtml: Html)
+
+@localStylesheets = {
+    <link rel="stylesheet" media="screen" href="@admin.routes.Assets.at("datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css")">
+    <link rel="stylesheet" media="screen" href="@admin.routes.Assets.at("admin/scss/dataTables.css")">
+}
+
+@localScripts = {
+    <!-- DataTables JavaScript -->
+    <script src="@admin.routes.Assets.at("datatables/js/jquery.dataTables.min.js")"></script>
+    <script src="@admin.routes.Assets.at("datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js")"></script>
+    <script src="@admin.routes.Assets.at("admin/javascripts/dataTables.js")"></script>
+}
+
+@views.html.aMain("Database in collection", "Database", localScripts, localStylesheets) {
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            @views.html.generic.panel("panel-default", collName) {
+                @formHtml
+                @collectionHtml
+            }
+
+        </div>
+    </div>
+}

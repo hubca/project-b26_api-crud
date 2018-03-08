@@ -1,0 +1,38 @@
+@(collName: String, oDocs: Option[Seq[models.db.RstMongo]])
+
+<table class="table datatable table-striped table-bordered table-hover cell-border display table-collection" id="dataTable">
+    <thead>
+        <tr role="row">
+            <th>id</th>
+            <th>name</th>
+            <th>country name</th>
+            <th>region</th>
+            <th>coordinates</th>
+            <th>last date open</th>
+            <th>last date closed</th>
+            <th>next date open</th>
+            <th>next date closed</th>
+            <th class="no-sort"></th>
+            <th class="no-sort"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(docs <- oDocs) {
+            @for((doc, idx) <- docs.zipWithIndex) {
+                <tr class="@doc.oddOrEvenTableRow(idx)" role="row">
+                    <td>@doc.idAsStringLast6(doc._id)</td>
+                    <td>@doc.name</td>
+                    <td>@doc.locationAsObj.countryName</td>
+                    <td>@doc.locationAsObj.regionAsObj.name</td>
+                    <td class="text-center">@doc.locationAsObj.geoLocationAsObj.getCoordinatesAsString</td>
+                    <td>@doc.seasonAsObj.lastOpenAsString</td>
+                    <td>@doc.seasonAsObj.lastClosedAsString</td>
+                    <td>@doc.seasonAsObj.nextOpenAsString</td>
+                    <td>@doc.seasonAsObj.nextClosedAsString</td>
+
+                    @views.html.db.actionColumns(collName, doc._id)(1)
+                </tr>
+            }
+        }
+    </tbody>
+</table>

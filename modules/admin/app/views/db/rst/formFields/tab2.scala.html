@@ -1,0 +1,39 @@
+@import helper._
+
+@(action: String, thisForm: Form[models.db.RstMongo])(implicit request: RequestHeader, messagesProvider: MessagesProvider)
+
+
+@views.html.generic.form.fieldset("3", "well") {
+
+    @inputText(thisForm("runsParksLifts_e.runsTotal"), '_label -> "runs total", 'class -> "form-control", 'id -> "runsParksLifts_e.runsTotal", 'name -> "runsParksLifts_e.runsTotal", 'size -> 15, 'placeholder -> "e.g. 48", 'required -> "required")
+    @inputText(thisForm("runsParksLifts_e.parksTotal"), '_label -> "parks total", 'class -> "form-control", 'id -> "runsParksLifts_e.parksTotal", 'name -> "runsParksLifts_e.parksTotal", 'size -> 10, 'placeholder -> "e.g. 6", 'required -> "required")
+    @inputText(thisForm("runsParksLifts_e.liftsTotal"), '_label -> "lifts total", 'class -> "form-control", 'id -> "runsParksLifts_e.liftsTotal", 'name -> "runsParksLifts_e.liftsTotal", 'size -> 10, 'placeholder -> "e.g. 131", 'required -> "required")
+
+}
+
+@views.html.generic.form.fieldset("3", "well") {
+
+    @inputText(thisForm("runTypes_e.greenRunsNum"), '_label -> "green runs", 'class -> "form-control", 'id -> "runTypes_e.greenRunsNum", 'name -> "runTypes_e.greenRunsNum", 'size -> 5, 'placeholder -> "e.g. 8", 'required -> "required")
+    @inputText(thisForm("runTypes_e.blueRunsNum"), '_label -> "blue runs", 'class -> "form-control", 'id -> "runTypes_e.blueRunsNum", 'name -> "runTypes_e.blueRunsNum", 'size -> 5, 'placeholder -> "e.g. 12", 'required -> "required")
+    @inputText(thisForm("runTypes_e.redRunsNum"), '_label -> "red runs", 'class -> "form-control", 'id -> "runTypes_e.redRunsNum", 'name -> "runTypes_e.redRunsNum", 'size -> 5, 'placeholder -> "e.g. 10", 'required -> "required")
+
+}
+
+@views.html.generic.form.fieldset("3", "well") {
+
+    @inputText(thisForm("runTypes_e.blackRunsNum"), '_label -> "black runs", 'class -> "form-control", 'id -> "runTypes_e.blackRunsNum", 'name -> "runTypes_e.blackRunsNum", 'size -> 5, 'placeholder -> "e.g. 6", 'required -> "required")
+    @inputText(thisForm("runTypes_e.greenCircleRunsNum"), '_label -> "green circle runs", 'class -> "form-control", 'id -> "runTypes_e.greenCircleRunsNum", 'name -> "runTypes_e.greenCircleRunsNum", 'size -> 5, 'placeholder -> "e.g. 7", 'required -> "required")
+    @inputText(thisForm("runTypes_e.blueSquareRunsNum"), '_label -> "blue square runs", 'class -> "form-control", 'id -> "runTypes_e.blueSquareRunsNum", 'name -> "runTypes_e.blueSquareRunsNum", 'size -> 5, 'placeholder -> "e.g. 9", 'required -> "required")
+
+}
+
+@views.html.generic.form.fieldset("3", "well") {
+
+    @inputText(thisForm("runTypes_e.blackDiamondRunsNum"), '_label -> "black diamond runs", 'class -> "form-control", 'id -> "runTypes_e.blackDiamondRunsNum", 'name -> "runTypes_e.blackDiamondRunsNum", 'size -> 5, 'placeholder -> "e.g. 3", 'required -> "required")
+    @inputText(thisForm("runTypes_e.blackDoubleDiamondRunsNum"), '_label -> "black double diamond runs", 'class -> "form-control", 'id -> "runTypes_e.blackDoubleDiamondRunsNum", 'name -> "runTypes_e.blackDoubleDiamondRunsNum", 'size -> 5, 'placeholder -> "e.g. 2", 'required -> "required")
+    @inputText(thisForm("runTypes_e.blackTripleDiamondRunsNum"), '_label -> "black triple diamond runs", 'class -> "form-control", 'id -> "runTypes_e.blackTripleDiamondRunsNum", 'name -> "runTypes_e.blackTripleDiamondRunsNum", 'size -> 5, 'placeholder -> "e.g. 1", 'required -> "required")
+
+}
+
+
+@views.html.generic.form.formAction("btn-action", "2", action)

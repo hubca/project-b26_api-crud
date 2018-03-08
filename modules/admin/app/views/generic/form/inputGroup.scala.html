@@ -1,0 +1,6 @@
+@(labelName: String, inputClass: String, idName: String, value: String, placeholder: String, required: String)
+
+<div class="form-group">
+    <label>@labelName</label>
+    <input type="text" class="@inputClass" id="@idName" name="@idName" value="@value" placeholder="e.g. @placeholder" @required>
+</div>

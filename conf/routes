@@ -9,31 +9,10 @@ GET     /count                                  controllers.CountController.coun
 # An example controller showing how to write asynchronous code
 GET     /message                                controllers.AsyncController.message
 
+->  /admin admin.Routes
+
 # Admin db access
-GET      /admin/db/rst                          controllers.AdminCtr.rstIdx
-POST     /admin/db/rst/add                      controllers.AdminCtr.rstCreateDoc
-GET      /admin/db/rst/delete/:rstId            controllers.AdminCtr.rstDelete(rstId: reactivemongo.bson.BSONObjectID)
-GET      /admin/db/rst/editIdx/:rstId           controllers.AdminCtr.rstEditIdx(rstId: reactivemongo.bson.BSONObjectID)
-POST     /admin/db/rst/edit/:rstId              controllers.AdminCtr.rstEdit(rstId: reactivemongo.bson.BSONObjectID)
-
-GET      /admin/db/rst/li                       controllers.AdminCtr.rstLocalIataAgg
-
-GET      /admin/db/wth                          controllers.AdminCtr.wthIdx
-POST     /admin/db/wth/add                      controllers.AdminCtr.wthCreateDoc
-GET      /admin/db/wth/delete/:wthId            controllers.AdminCtr.wthDelete(wthId: reactivemongo.bson.BSONObjectID)
-GET      /admin/db/wth/editIdx/:wthId           controllers.AdminCtr.wthEditIdx(wthId: reactivemongo.bson.BSONObjectID)
-POST     /admin/db/wth/edit/:wthId              controllers.AdminCtr.wthEdit(wthId: reactivemongo.bson.BSONObjectID)
-
-GET      /admin/db/ngh                          controllers.AdminCtr.nghIdx
-POST     /admin/db/ngh/add                      controllers.AdminCtr.nghCreateDoc
-GET      /admin/db/ngh/delete/:nghId            controllers.AdminCtr.nghDelete(nghId: reactivemongo.bson.BSONObjectID)
-GET      /admin/db/ngh/editIdx/:nghId           controllers.AdminCtr.nghEditIdx(nghId: reactivemongo.bson.BSONObjectID)
-POST     /admin/db/ngh/edit/:nghId              controllers.AdminCtr.nghEdit(nghId: reactivemongo.bson.BSONObjectID)
-
-GET      /admin/db/wthAgg/:from/:to             controllers.AdminCtr.wthAgg(from: String, to: String)
-GET      /admin/db/allCollections               controllers.AdminCtr.showAllCollections
-
-GET      /admin/db/updateScore/:cat             controllers.UpdateScoresCtr.updateScore(cat: String)
+GET      /db/wthAgg/:from/:to                   controllers.AdminC.wthAgg(from: String, to: String)
 
 
 # A mock controller mimicking action composition using I/O
@@ -49,21 +28,8 @@ GET      /json/twoJsons                         controllers.JsonController.twoJs
 
 
 # -- NOT IN USE --
-# create documents in resortInfoStr collection with JSON post
-#POST     /db/resortInfo/add                    controllers.AdminCtr.createDocument
-
-# delete documents in resortInfoStr collection with JSON post
-#POST     /db/deleteResort2/:resortName         controllers.AdminCtr.deleteResort2(resortName: String)
-
-# create documents in resortInfoStr collection with code in method
-#GET      /db/createFromCode                    controllers.AdminCtr.createFromCode
-
-#POST     /db/resortInfo/bulk                   controllers.AdminCtr.createBulkFromJson
-#POST     /db/resortInfo/bulkInsert             controllers.AdminCtr.createBulkFromJsonThree
-#GET      /db/resortsByPrefix                   controllers.AdminCtr.findResortsByPrefix(resortInfoFuture: BSONCollection)
-
-#GET      /db/findByName2                       controllers.AdminCtr.findByNameTwo(resortCountry: String, limit: Int)
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET      /assets/*file                          controllers.Assets.versioned(path="/public", file: Asset)
+#GET      /assets/*file                          controllers.Assets.versioned(path="/public", file: Asset)
+GET       /assets/*file                          controllers.Assets.at(path="/public", file)

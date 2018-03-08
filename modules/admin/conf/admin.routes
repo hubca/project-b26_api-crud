@@ -1,0 +1,27 @@
+# Routes
+# This file defines all admin application routes (Higher priority routes first)
+# ~~~~
+
+GET     /                                                   controllers.admin.HomeController6.index
+
+# http://localhost:9000/admin/db/rst/update/index/6?oId=435jndjfsggnwerfn
+GET     /db/:collName/:queryType/index/:activeTabIdx        controllers.admin.db.DatabaseC.index(collName: String, queryType: String, oId: Option[BSONObjectID], activeTabIdx: Int)
+POST    /db/:collName/:queryType/:activeTabIdx              controllers.admin.db.DatabaseC.queryCollection(collName: String, queryType: String, oId: Option[BSONObjectID], activeTabIdx: Int)
+GET     /db/:collName/delete/:activeTabIdx                  controllers.admin.db.DatabaseC.deleteDoc(collName: String, oId: Option[BSONObjectID], activeTabIdx: Int)
+
+# testing mode data
+GET     /testModel/db/:collName                             controllers.admin.ApiC.testModelData(collName: String, oId: Option[BSONObjectID], oReturnField: Option[String])
+
+# testing internal api calls
+#GET     /api/1.1/:inputSource/:serviceName                  controllers.admin.ApiC.index(inputSource: String, serviceName: String)
+
+# e.g. /api/1.1/db/r/rst?fields=
+GET     /api/1.1/db/r/:collName                             controllers.admin.ApiC.retrieveData(collName: String, oId: Option[BSONObjectID])
+
+# testing output for updatng scoreBG in rst collection
+GET     /db/updateScore/:scoreName                          controllers.admin.db.DatabaseC.updateScore(scoreName: String)
+GET     /db/bulkUpdateScore/:scoreName/:part                controllers.admin.db.DatabaseC.bulkUpdateScore(scoreName: String, part: Int)
+GET     /db/testTransformers                                controllers.admin.db.DatabaseC.testTransform
+
+GET /assets/*file                                           controllers.admin.Assets.at(path="/public/lib", file)
+#GET /assets/*file                                          controllers.admin.Assets.at(path="/public/lib/admin", file)

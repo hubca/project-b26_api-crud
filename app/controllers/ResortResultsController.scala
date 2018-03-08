@@ -12,8 +12,8 @@ import akka.stream.scaladsl.Source.fromFuture
 import play.api.http.MediaRange.parse
 import play.api.libs.json.JsValue
 import services.ServiceClient
-import ui.HtmlStream
 import ui.HtmlStreamImplicits._
+import ui.HtmlStream
 
 /**
   * Created by sambo on 14/08/2017.

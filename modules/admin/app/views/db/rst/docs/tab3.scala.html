@@ -1,0 +1,50 @@
+@(collName: String, oDocs: Option[Seq[models.db.RstMongo]])
+
+<table class="table datatable table-striped table-bordered table-hover display no-footer table-collection" id="dataTable">
+    <thead>
+        <tr role="row">
+            <th>id</th>
+            <th>name</th>
+            <th>gondola lifts</th>
+            <th>button lifts</th>
+            <th>chairlifts</th>
+            <th>cable cars</th>
+            <th>moving carpet lifts</th>
+            <th>valid areas</th>
+            <th>prices valid from</th>
+            <th>prices valid until</th>
+            <th>child weekday (usd)</th>
+            <th>child 6 day (usd)</th>
+            <th>adult weekday (usd)</th>
+            <th>adult 6 day (usd)</th>
+            <th>deep links</th>
+            <th class="no-sort"></th>
+            <th class="no-sort"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(docs <- oDocs) {
+            @for((doc, idx) <- docs.zipWithIndex) {
+                <tr class="@doc.oddOrEvenTableRow(idx)" role="row">
+                    <td>@doc.idAsStringLast6(doc._id)</td>
+                    <td>@doc.name</td>
+                    <td class="text-center">@doc.liftTypesAsObj.gondolaLiftsNum</td>
+                    <td class="text-center">@doc.liftTypesAsObj.buttonLiftsNum</td>
+                    <td class="text-center">@doc.liftTypesAsObj.chairLiftsNum</td>
+                    <td class="text-center">@doc.liftTypesAsObj.cableCarLiftsNum</td>
+                    <td class="text-center">@doc.liftTypesAsObj.movingCarpetLiftsNum</td>
+                    <td>@doc.areaValidArrAsString</td>
+                    <td class="text-center">@doc.pricesValidFromAsString</td>
+                    <td class="text-center">@doc.pricesValidUntilAsString</td>
+                    <td>@doc.liftPassPricesAsObj.priceChildWeekDay_usd</td>
+                    <td>@doc.liftPassPricesAsObj.priceChild6Day_usd</td>
+                    <td>@doc.liftPassPricesAsObj.priceAdultWeekDay_usd</td>
+                    <td>@doc.liftPassPricesAsObj.priceAdult6Day_usd</td>
+                    <td>@doc.priceDeepLinkArrAsString</td>
+
+                    @views.html.db.actionColumns(collName, doc._id)(3)
+                </tr>
+            }
+        }
+    </tbody>
+</table>

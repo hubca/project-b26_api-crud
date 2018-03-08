@@ -1,0 +1,36 @@
+@import helper._
+
+@(queryType: String, thisForm: Form[models.db.CtyMongo], oOptsMap: Option[Map[String, Seq[(String, String)]]])(implicit request: RequestHeader, messagesProvider: MessagesProvider)
+
+
+@views.html.generic.form.fieldset("3", "well") {
+
+    @inputText(thisForm("varData_e.countryName"), '_label -> "country name", 'class -> "form-control", 'id -> "countryName", 'name -> "countryName", 'size -> 30, 'placeholder -> "e.g. France", 'required -> "required")
+    @inputText(thisForm("varData_e.countryCode"), '_label -> "country code", 'class -> "form-control", 'id -> "countryCode", 'name -> "countryCode", 'size -> 10, 'placeholder -> "e.g. FR", 'required -> "required")
+
+}
+
+@views.html.generic.form.fieldset("3", "well") {
+
+    @for(optsMap <- oOptsMap) {
+        @select(thisForm("varData_e.continent"), options = optsMap("continents"), '_label -> "continent", 'class -> "form-control", 'id -> "continent", 'name -> "continent")
+        @select(thisForm("varData_e.hemisphere"), options = optsMap("hemispheres"), '_label -> "hemisphere", 'class -> "form-control", 'id -> "hemisphere", 'name -> "hemisphere")
+    }
+
+}
+
+@views.html.generic.form.fieldset("3", "well") {
+
+    @repeatWithIndex(thisForm("varData_e.languagesArr"), min = 2) { (language, idx) =>
+        @inputText(language, '_label -> ("language #" + (idx +1)), 'class -> "form-control", 'placeholder -> "e.g. French")
+    }
+
+}
+
+@views.html.generic.form.fieldset("3", "well") {
+
+    @inputText(thisForm("varData_e.currencyCode"), '_label -> "currency code", 'class -> "form-control", 'id -> "currencyCode", 'name -> "currencyCode", 'size -> 10, 'placeholder -> "e.g. EUR", 'required -> "required")
+
+}
+
+@views.html.generic.form.formAction("btn-action", "1", queryType)

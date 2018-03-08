@@ -1,0 +1,31 @@
+@import helper._
+
+@(action: String, thisForm: Form[models.db.OurMongo], oOptsMap: Option[Map[String, Seq[(String, String)]]])(implicit request: RequestHeader, messagesProvider: MessagesProvider)
+
+@for(optsMap <- oOptsMap) {
+
+    @views.html.generic.form.fieldset("4", "well") {
+
+        @inputText(thisForm("liftFacilitiesRating"), '_label -> "lift facilities rating", 'class -> "form-control", 'id -> "liftFacilitiesRating", 'name -> "liftFacilitiesRating", 'size -> 4, 'placeholder -> "e.g. 8.6", 'required -> "required")
+        @inputText(thisForm("atmosphereRating"), '_label -> "atmosphere rating", 'class -> "form-control", 'id -> "atmosphereRating", 'name -> "atmosphereRating", 'size -> 4, 'placeholder -> "e.g. 8.6", 'required -> "required")
+
+    }
+
+    @views.html.generic.form.fieldset("4", "well") {
+
+        @inputText(thisForm("funRating"), '_label -> "fun rating", 'class -> "form-control", 'id -> "funRating", 'name -> "funRating", 'size -> 4, 'placeholder -> "e.g. 8.6", 'required -> "required")
+        @inputText(thisForm("suitabilityRating"), '_label -> "suitability rating", 'class -> "form-control", 'id -> "suitabilityRating", 'name -> "suitabilityRating", 'size -> 4, 'placeholder -> "e.g. 8.6", 'required -> "required")
+
+    }
+
+    @views.html.generic.form.fieldset("4", "well") {
+
+        @inputText(thisForm("valueRating"), '_label -> "value rating", 'class -> "form-control", 'id -> "valueRating", 'name -> "valueRating", 'size -> 4, 'placeholder -> "e.g. 8.6", 'required -> "required")
+        @inputText(thisForm("liklihoodToVisitAgain"), '_label -> "liklihood to visit again", 'class -> "form-control", 'id -> "liklihoodToVisitAgain", 'name -> "liklihoodToVisitAgain", 'size -> 4, 'placeholder -> "e.g. 8.6", 'required -> "required")
+
+    }
+
+}
+
+
+@views.html.generic.form.formAction("btn-action", "2", action)

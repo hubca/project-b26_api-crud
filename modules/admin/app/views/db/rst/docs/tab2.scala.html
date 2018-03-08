@@ -1,0 +1,48 @@
+@(collName: String, oDocs: Option[Seq[models.db.RstMongo]])
+
+<table class="table datatable table-striped table-bordered table-hover display no-footer table-collection" id="dataTable">
+    <thead>
+        <tr role="row">
+            <th>id</th>
+            <th>name</th>
+            <th>runs total</th>
+            <th>parks total</th>
+            <th>lifts total</th>
+            <th>green runs</th>
+            <th>blue runs</th>
+            <th>red runs</th>
+            <th>black runs</th>
+            <th>green circle runs</th>
+            <th>blue square runs</th>
+            <th>black diamond</th>
+            <th>black double diamond</th>
+            <th>black triple diamond</th>
+            <th class="no-sort"></th>
+            <th class="no-sort"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(docs <- oDocs) {
+            @for((doc, idx) <- docs.zipWithIndex) {
+                <tr class="@doc.oddOrEvenTableRow(idx)" role="row">
+                    <td>@doc.idAsStringLast6(doc._id)</td>
+                    <td>@doc.name</td>
+                    <td class="text-center">@doc.runsParksLiftsAsObj.runsTotal</td>
+                    <td class="text-center">@doc.runsParksLiftsAsObj.parksTotal</td>
+                    <td class="text-center">@doc.runsParksLiftsAsObj.liftsTotal</td>
+                    <td class="text-center">@doc.runTypesAsObj.greenRunsNum</td>
+                    <td class="text-center">@doc.runTypesAsObj.blueRunsNum</td>
+                    <td class="text-center">@doc.runTypesAsObj.redRunsNum</td>
+                    <td class="text-center">@doc.runTypesAsObj.blackRunsNum</td>
+                    <td class="text-center">@doc.runTypesAsObj.greenCircleRunsNum</td>
+                    <td class="text-center">@doc.runTypesAsObj.blueSquareRunsNum</td>
+                    <td class="text-center">@doc.runTypesAsObj.blackDiamondRunsNum</td>
+                    <td class="text-center">@doc.runTypesAsObj.blackDoubleDiamondRunsNum</td>
+                    <td class="text-center">@doc.runTypesAsObj.blackTripleDiamondRunsNum</td>
+
+                    @views.html.db.actionColumns(collName, doc._id)(2)
+                </tr>
+            }
+        }
+    </tbody>
+</table>

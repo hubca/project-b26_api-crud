@@ -1,0 +1,13 @@
+@(oNames: Option[Seq[String]], activeTabIdx: Int)
+
+<ul class="nav nav-tabs">
+
+    @for(names <- oNames) {
+
+        @for((tab, idx) <- names.zipWithIndex) {
+            @views.html.generic.navLi("tab" + (idx + 1).toString, tab, views.generic.GenericHelper.isActive(idx, activeTabIdx))
+        }
+
+    }
+
+</ul>

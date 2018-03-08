@@ -1,0 +1,36 @@
+@(collName: String, oDocs: Option[Seq[models.db.OurMongo]])
+
+<table class="table datatable table-striped table-bordered table-hover cell-border display table-collection" id="dataTable">
+    <thead>
+        <tr role="row">
+            <th>id</th>
+            <th>lift facilities rating</th>
+            <th>atmosphere rating</th>
+            <th>fun rating</th>
+            <th>suitability rating</th>
+            <th>value rating</th>
+            <th>overall rating</th>
+            <th>liklihood to visit again</th>
+            <th class="no-sort"></th>
+            <th class="no-sort"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(docs <- oDocs) {
+            @for((doc, idx) <- docs.zipWithIndex) {
+                <tr class="@doc.oddOrEvenTableRow(idx)" role="row">
+                    <td>@doc.idAsStringLast6(doc._id)</td>
+                    <td class="text-center">@doc.liftFacilitiesRating</td>
+                    <td class="text-center">@doc.atmosphereRating</td>
+                    <td class="text-center">@doc.funRating</td>
+                    <td class="text-center">@doc.suitabilityRating</td>
+                    <td class="text-center">@doc.valueRating</td>
+                    <td class="text-center">@doc.overallRating</td>
+                    <td class="text-center">@doc.liklihoodToVisitAgain</td>
+
+                    @views.html.db.actionColumns(collName, doc._id)(2)
+                </tr>
+            }
+        }
+    </tbody>
+</table>

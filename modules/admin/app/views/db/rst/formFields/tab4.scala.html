@@ -1,0 +1,22 @@
+@import helper._
+
+@(action: String, thisForm: Form[models.db.RstMongo])(implicit request: RequestHeader, messagesProvider: MessagesProvider)
+
+
+@views.html.generic.form.fieldset("4", "well") {
+
+    @inputText(thisForm("metricsAndVisitors_e.pisteArea_km2"), '_label -> "piste area (km2)", 'class -> "form-control", 'id -> "metricsAndVisitors_e.pisteArea_km2", 'name -> "metricsAndVisitors_e.pisteArea_km2", 'size -> 15, 'placeholder -> "e.g. 16.2", 'required -> "required")
+    @inputText(thisForm("metricsAndVisitors_e.highestAltitude_m"), '_label -> "highest altitude (m)", 'class -> "form-control", 'id -> "metricsAndVisitors_e.highestAltitude_m", 'name -> "metricsAndVisitors_e.highestAltitude_m", 'size -> 10, 'placeholder -> "e.g. 1125", 'required -> "required")
+    @inputText(thisForm("metricsAndVisitors_e.avgAnnualVisitors"), '_label -> "avg annual visitors", 'class -> "form-control", 'id -> "metricsAndVisitors_e.avgAnnualVisitors", 'name -> "metricsAndVisitors_e.avgAnnualVisitors", 'size -> 10, 'placeholder -> "e.g. 152000", 'required -> "required")
+    @inputText(thisForm("metricsAndVisitors_e.avgVistorDensityPerKm2PerDay"), '_label -> "avg visitor density/km2/day", 'class -> "form-control", 'id -> "metricsAndVisitors_e.avgVistorDensityPerKm2PerDay", 'name -> "metricsAndVisitors_e.avgVistorDensityPerKm2PerDay", 'size -> 10, 'placeholder -> "e.g. 18.4", 'disabled -> "disabled")
+
+}
+
+@views.html.generic.form.fieldset("8", "well") {
+
+    @textarea(thisForm("description_e.short"), '_label -> "short description", 'class -> "form-control", 'id -> "description_e.short", 'name -> "description_e.short", 'rows -> 3, 'columns -> 20, 'placeholder -> "e.g. A nice place to visit", 'required -> "required")
+    @textarea(thisForm("description_e.full"), '_label -> "full description", 'class -> "form-control", 'id -> "description_e.full", 'name -> "description_e.full", 'rows -> 6, 'columns -> 20, 'placeholder -> "e.g. A much longer description here", 'required -> "required")
+
+}
+
+@views.html.generic.form.formAction("btn-action", "4", action)

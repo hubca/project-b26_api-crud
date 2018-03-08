@@ -1,0 +1,46 @@
+@(collName: String, oDocs: Option[Seq[models.db.RstMongo]])
+
+<table class="table datatable table-striped table-bordered table-hover display no-footer table-collection" id="dataTable">
+    <thead>
+        <tr role="row">
+            <th>id</th>
+            <th>name</th>
+            <th>boarding area</th>
+            <th>snowfall (def)</th>
+            <th>beginner</th>
+            <th>family (pre)</th>
+            <th>family (def pre)</th>
+            <th>low cost (pre)</th>
+            <th>group</th>
+            <th>advanced</th>
+            <th>night life</th>
+            <th>food & drink (pre)</th>
+            <th>parks</th>
+            <th class="no-sort"></th>
+            <th class="no-sort"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(docs <- oDocs) {
+            @for((doc, idx) <- docs.zipWithIndex) {
+                <tr class="@doc.oddOrEvenTableRow(idx)" role="row">
+                    <td>@doc.idAsStringLast6(doc._id)</td>
+                    <td>@doc.name</td>
+                    <td class="text-center">@doc.scoresAsObj.scoreBA</td>
+                    <td class="text-center">@doc.scoresAsObj.scoreSFdef</td>
+                    <td class="text-center">@doc.scoresAsObj.scoreBG</td>
+                    <td class="text-center">@doc.scoresAsObj.scoreFMpre</td>
+                    <td class="text-center">@doc.scoresAsObj.scoreFMdefPre</td>
+                    <td class="text-center">@doc.scoresAsObj.scoreLCpre</td>
+                    <td class="text-center">@doc.scoresAsObj.scoreGR</td>
+                    <td class="text-center">@doc.scoresAsObj.scoreAD</td>
+                    <td class="text-center">@doc.scoresAsObj.scoreNL</td>
+                    <td class="text-center">@doc.scoresAsObj.scoreFDpre</td>
+                    <td class="text-center">@doc.scoresAsObj.scorePR</td>
+
+                    @views.html.db.actionColumns(collName, doc._id)(5)
+                </tr>
+            }
+        }
+    </tbody>
+</table>

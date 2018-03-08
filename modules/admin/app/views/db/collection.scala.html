@@ -1,0 +1,21 @@
+@import helper._
+@(collName: String)(docsTabList: Seq[Html], activeTabIdx: Int = 0)(implicit request: RequestHeader, messagesProvider: MessagesProvider)
+
+
+@views.html.generic.panelCollapsible("panel-data", collName + " collection", "collapse-documents") {
+
+    @views.html.generic.panelBody {
+
+        @views.html.generic.tabContent {
+            @for((thisTab, idx) <- docsTabList.zipWithIndex) {
+
+                @views.html.generic.tabPane("panel-group docs fade", "dtab" + (idx+1), views.generic.GenericHelper.isActive(idx, activeTabIdx, " in")) {
+                    @thisTab
+                }
+
+            }
+        }
+
+    }
+
+}

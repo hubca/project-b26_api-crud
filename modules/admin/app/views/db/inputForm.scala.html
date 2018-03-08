@@ -1,0 +1,21 @@
+@import helper._
+
+@(collName: String, queryType: String)(oId: Option[reactivemongo.bson.BSONObjectID], oOptsMap: Option[Map[String, Seq[(String, String)]]] = None)(formTabList: Seq[Html], activeTabIdx: Int = 0)(implicit request: RequestHeader, messagesProvider: MessagesProvider)
+
+
+@form(action = admin.db.routes.DatabaseC.queryCollection(collName, queryType, oId, activeTabIdx), 'name -> "@collName+-form", 'id -> "@collName+-form", 'class -> "admin-db-form") {
+    @CSRF.formField
+
+    @views.html.generic.panelCollapsible("panel-action", queryType + " document", "collapse-form") {
+        @views.html.generic.tabContent {
+            @for((thisTab, idx) <- formTabList.zipWithIndex) {
+
+                @views.html.generic.tabPane("panel-group form-fields fade", "tab" + (idx+1), views.generic.GenericHelper.isActive(idx, activeTabIdx, " in")) {
+                    @thisTab
+                }
+
+            }
+        }
+    }
+
+}

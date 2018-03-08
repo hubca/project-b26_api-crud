@@ -1,0 +1,36 @@
+@import helper._
+
+@(action: String, thisForm: Form[models.db.RstMongo])(implicit request: RequestHeader, messagesProvider: MessagesProvider)
+
+@views.html.generic.form.fieldset("3", "well") {
+
+    @inputText(thisForm("scores_e.scoreBA"), '_label -> "boarding area score", 'class -> "form-control", 'id -> "scores_e.scoreBA", 'name -> "scores_e.scoreBA", 'size -> 8, 'placeholder -> "e.g. 0.847", 'disabled -> "disabled")
+    @inputText(thisForm("scores_e.scoreSFdef"), '_label -> "snowfall score (default)", 'class -> "form-control", 'id -> "scores_e.scoreSFdef", 'name -> "scores_e.scoreSFdef", 'size -> 8, 'placeholder -> "e.g. 0.53", 'disabled -> "disabled")
+    @inputText(thisForm("scores_e.scoreBG"), '_label -> "beginner score", 'class -> "form-control", 'id -> "scores_e.scoreBG", 'name -> "scores_e.scoreBG", 'size -> 8, 'placeholder -> "e.g. 0.723", 'disabled -> "disabled")
+
+}
+
+@views.html.generic.form.fieldset("3", "well") {
+
+    @inputText(thisForm("scores_e.scoreFMpre"), '_label -> "family pre-score", 'class -> "form-control", 'id -> "scores_e.scoreFMpre", 'name -> "scores_e.scoreFMpre", 'size -> 8, 'placeholder -> "e.g. 0.451", 'disabled -> "disabled")
+    @inputText(thisForm("scores_e.scoreFMdefPre"), '_label -> "family pre-score (default)", 'class -> "form-control", 'id -> "scores_e.scoreFMdefPre", 'name -> "scores_e.scoreFMdefPre", 'size -> 8, 'placeholder -> "e.g. 0.482", 'disabled -> "disabled")
+    @inputText(thisForm("scores_e.scoreLCpre"), '_label -> "low cost score", 'class -> "form-control", 'id -> "scores_e.scoreLCpre", 'name -> "scores_e.scoreLCpre", 'size -> 8, 'placeholder -> "e.g. 0.873", 'disabled -> "disabled")
+
+}
+
+@views.html.generic.form.fieldset("3", "well") {
+
+    @inputText(thisForm("scores_e.scoreGR"), '_label -> "group score", 'class -> "form-control", 'id -> "scores_e.scoreGR", 'name -> "scores_e.scoreGR", 'size -> 8, 'placeholder -> "e.g. 0.908", 'disabled -> "disabled")
+    @inputText(thisForm("scores_e.scoreAD"), '_label -> "advanced score", 'class -> "form-control", 'id -> "scores_e.scoreAD", 'name -> "scores_e.scoreAD", 'size -> 8, 'placeholder -> "e.g. 0.261", 'disabled -> "disabled")
+    @inputText(thisForm("scores_e.scoreNL"), '_label -> "nightlife score", 'class -> "form-control", 'id -> "scores_e.scoreNL", 'name -> "scores_e.scoreNL", 'size -> 8, 'placeholder -> "e.g. 0.7154", 'disabled -> "disabled")
+
+}
+
+@views.html.generic.form.fieldset("3", "well") {
+
+    @inputText(thisForm("scores_e.scoreFDpre"), '_label -> "food & drink pre-score", 'class -> "form-control", 'id -> "scores_e.scoreFDpre", 'name -> "scores_e.scoreFDpre", 'size -> 8, 'placeholder -> "e.g. 0.942", 'disabled -> "disabled")
+    @inputText(thisForm("scores_e.scorePR"), '_label -> "parks score", 'class -> "form-control", 'id -> "scores_e.scorePR", 'name -> "scores_e.scorePR", 'size -> 8, 'placeholder -> "e.g. 0.7154", 'disabled -> "disabled")
+
+}
+
+@views.html.generic.form.formAction("btn-action", "6", action)

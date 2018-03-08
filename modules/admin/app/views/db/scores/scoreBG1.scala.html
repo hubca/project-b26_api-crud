@@ -1,0 +1,20 @@
+@(oDocs: Option[Seq[models.db.ScoreBA]])
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>scoreBA output</title>
+    </head>
+    <body>
+
+        @for(docs <- oDocs) {
+            @for(doc <- docs) {
+                <p>
+                    <div>scoreBA: @doc.scoreBA</div>
+                </p>
+            }
+        }
+
+    </body>
+</html>

@@ -1,0 +1,21 @@
+@import helper._
+@(formElement: play.api.data.Field, opts: Seq[(String, String)], defaultValue: String)(attrMap: Map[String, String])(accompanyingInputsHtml: Html)(implicit request: RequestHeader, messagesProvider: MessagesProvider)
+
+<div class="radioSelectWithPartners">
+
+    @inputRadioGroup(
+        formElement.copy(
+            value=formElement.value.map{Some(_)}.getOrElse(Some(defaultValue))
+        ),
+        options = opts,
+        'class -> "form-control form-control-radio",
+        '_label -> attrMap("_label"),
+        'id -> attrMap("name"),
+        'name -> attrMap("name"),
+        'size -> 20
+    )
+
+    <div class="partnerInputBoxes">
+        @accompanyingInputsHtml
+    </div>
+</div>

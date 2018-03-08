@@ -1,0 +1,29 @@
+@(oDocs: Option[Seq[models.db.ScoreBG]])
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>scoreBG output</title>
+    </head>
+    <body>
+
+        <h1>scoreBG3</h1>
+
+        @for(docs <- oDocs) {
+            @for(doc <- docs) {
+                <p>
+                    <div>@doc.idAsString(doc._id)</div>
+                    <div>@doc.idAsString(doc.rstId)</div>
+                    <div>@doc.userSkillLevel</div>
+                    <div>@doc.overallRating</div>
+                    <div>@doc.lastVisitAsObj.selection</div>
+                    <div>@doc.lastVisitAsObj.dateAsString</div>
+                    <div>@doc.rstDataAsObj.runTypesAsObj.greenRunsNum</div>
+                    <div>@doc.rstDataAsObj.liftTypesAsObj.buttonLiftsNum</div>
+                </p>
+            }
+        }
+
+    </body>
+</html>

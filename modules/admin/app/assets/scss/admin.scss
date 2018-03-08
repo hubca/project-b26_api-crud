@@ -1,0 +1,448 @@
+@import "lib/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "lib/font-awesome/scss/font-awesome.scss";
+
+/* todo - not able to do for some reason but need to change $fa-font-path here to avoid altering external dependencies, e.g. $fa-font-path: "/assets/lib/font-awesome/fonts" !default;*/
+
+/* copied from play-sb-admin2 */
+
+$gray-darker: lighten(#000, 13.5%);
+$gray-dark: lighten(#000, 20%);
+$gray: lighten(#000, 33.5%);
+$gray-light: lighten(#000, 60%);
+$gray-lighter: lighten(#000, 93.5%);
+$gray-lightest: lighten(#000, 97.25%);
+$brand-primary: #428bca;
+$brand-success: #5cb85c;
+$brand-info: #5bc0de;
+$brand-warning: #f0ad4e;
+$brand-danger: #d9534f;
+
+/* bo - added */
+$panel-action: #073c5e;
+$panel-action-light: lighten($panel-action, 30%);
+$panel-data: #215778;
+$panel-data-light: lighten($panel-data, 30%);
+$change-action: #5e5107;
+$change-action-light: lighten($change-action, 30%);
+
+body {
+    color: #555 !important;/*#073c5e !important;*//*#ffb3b3 !important;*/
+}
+
+#wrapper {
+    width: 100%;
+}
+
+#page-wrapper {
+    padding: 0px 15px;
+    min-height: 568px;
+    background-color: white;
+}
+
+@media(min-width:768px) {
+    #page-wrapper {
+        position: inherit;
+        margin: 0 0 0 250px;
+        padding: 0 30px;
+        border-left: 1px solid darken($gray-lightest, 6.5%);
+    }
+}
+
+
+.navbar-top-links {
+    margin-right: 0;
+}
+
+.navbar-top-links li {
+    display: inline-block;
+}
+
+.navbar-top-links li:last-child {
+    margin-right: 15px;
+}
+
+.navbar-top-links li a {
+    padding: 15px;
+    min-height: 50px;
+}
+
+.navbar-top-links .dropdown-menu li {
+    display: block;
+}
+
+.navbar-top-links .dropdown-menu li:last-child {
+    margin-right: 0;
+}
+
+.navbar-top-links .dropdown-menu li a {
+    padding: 3px 20px;
+    min-height: 0;
+}
+
+.navbar-top-links .dropdown-menu li a div {
+    white-space: normal;
+}
+
+.navbar-top-links .dropdown-messages,
+.navbar-top-links .dropdown-tasks,
+.navbar-top-links .dropdown-alerts {
+    width: 310px;
+    min-width: 0;
+}
+
+.navbar-top-links .dropdown-messages {
+    margin-left: 5px;
+}
+
+.navbar-top-links .dropdown-tasks {
+    margin-left: -59px;
+}
+
+.navbar-top-links .dropdown-alerts {
+    margin-left: -123px;
+}
+
+.navbar-top-links .dropdown-user {
+    right: 0;
+    left: auto;
+}
+
+.sidebar {
+    .sidebar-nav.navbar-collapse {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+.sidebar .sidebar-search {
+    padding: 15px;
+}
+
+.sidebar ul li {
+    border-bottom: 1px solid darken($gray-lightest, 6.5%);
+    a {
+        &.active {
+            background-color: $gray-lighter;
+        }
+    }
+}
+
+.sidebar .arrow {
+    float: right;
+}
+
+.sidebar .fa.arrow:before {
+    content: "\f104";
+}
+
+.sidebar .active > a > .fa.arrow:before {
+    content: "\f107";
+}
+
+.sidebar .nav-second-level li,
+.sidebar .nav-third-level li {
+    border-bottom: none !important;
+}
+
+.sidebar .nav-second-level li a {
+    padding-left: 37px;
+}
+
+.sidebar .nav-third-level li a {
+    padding-left: 52px;
+}
+
+@media(min-width:768px) {
+    .sidebar {
+        z-index: 1;
+        position: absolute;
+        width: 250px;
+        margin-top: 51px;
+    }
+
+    .navbar-top-links .dropdown-messages,
+    .navbar-top-links .dropdown-tasks,
+    .navbar-top-links .dropdown-alerts {
+        margin-left: auto;
+    }
+}
+
+/* bof_bo - functions */
+@function calc-percent($target, $container, $percent) {
+  @return ($target / $container) * $percent;
+}
+
+@function column-width($numOfColumns) {
+  @return calc-percent(1055px, 1099px, 100%) / $numOfColumns;
+}
+/* eof_bo - functions */
+
+/* bof_bo - custom edited */
+.page-header {
+    margin: 0 !important;
+}
+
+.page-header i.fa:before {
+    font-size: smaller;
+}
+
+.nav-tabs {
+    margin-bottom: 20px !important;
+}
+
+label {
+    margin-bottom: 3px !important;
+    padding: 0 5;
+}
+
+/*
+fieldset {
+    float: left;
+    margin: 0px;
+    padding: 5px 20px;
+    background-color: #f5f5f5;
+}
+*/
+
+.radioSelectWithPartners dl {
+    margin-bottom: 0px !important;
+}
+
+input[type="radio"] {
+    display: inline !important;
+    vertical-align: sub !important;
+}
+
+.form-control-radio {
+    width: auto !important;
+    height: auto !important;
+}
+
+.buttonset label {
+    display: inline !important;
+}
+
+.fieldsetlet {
+    display: inline-block;
+    width: 49%;
+}
+
+.buttonset label::after {
+    content: "";
+    display: block;
+}
+
+.form-actions {
+    width: 100%; /* needed? */
+}
+
+.btn-primary, .btn-action {
+    float: right;
+    margin: 20px 0px 0px;
+}
+
+.btn-action {
+    color: white;
+    font-size: 16px !important;
+    background-color: $panel-action-light;
+    border-color: darken($panel-action-light, 10%);
+}
+
+.btn-change-action {
+    float: right;
+    margin: 0px;
+    color: white;
+    font-size: 16px !important;
+    background-color: $change-action;
+    border-color: darken($change-action-light, 10%);
+}
+
+.btn-data {
+    color: white;
+    background-color: $panel-data-light;
+    border-color: darken($panel-data-light, 10%);
+}
+
+.btn-default {
+    height: 34px;
+}
+
+.panel-primary>.panel-heading {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.panel-default>.panel-heading {
+    font-size: 20px;
+    font-weight: bold;
+    color: inherit !important;
+}
+
+.panel-default>.panel-body {
+    margin-bottom: 10px;
+}
+
+.panel-yellow {
+    border-color: $brand-warning;
+    .panel-heading {
+        border-color: $brand-warning;
+        color: white;
+        background-color: $brand-warning;
+    }
+    a {
+        color: $brand-warning;
+        &:hover {
+            color: darken($brand-warning, 15%);
+        }
+    }
+}
+
+.panel-action {
+    border-color: $panel-action-light;
+    .panel-heading {
+        cursor: pointer;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        border-color: $panel-action-light;
+        background-color: $panel-action-light;
+    }
+
+    a {
+        color: $panel-action-light;
+        &:hover {
+            color: $panel-action;
+        }
+    }
+}
+
+.panel-data {
+    border-color: $panel-data-light;
+    .panel-heading {
+        cursor: pointer;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        border-color: $panel-data-light;
+        background-color: $panel-data-light;
+    }
+    a {
+        color: $panel-data-light;
+        &:hover {
+            color: $panel-data;
+        }
+    }
+}
+
+dd.info {
+    display: none;
+}
+
+table.dataTable thead .sorting:after, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc:after {
+    position: relative !important;
+    float: none !important;
+    width: calc(100% - 30px);
+    top: auto !important;
+    right: auto !important;
+    bottom: 0px !important;
+    margin: 0px auto;
+}
+
+table.dataTable thead > tr > th {
+    padding-right: 8px !important;
+}
+
+table.table-bordered th:first-child, table.table-bordered td:first-child {
+    border-left-width: 0 !important;
+}
+
+table.table-bordered th:last-child, table.table-bordered td:last-child {
+    border-right-width: 0 !important;
+}
+
+/* eof_bo - custom edited */
+
+/* bof_bo - created */
+.three-column fieldset {
+    width: column-width(3);
+    border-radius: 15px;
+    border: 1px solid #ddd;
+}
+
+.four-column fieldset {
+    width: column-width(4);
+}
+
+.leftField {
+}
+
+.middleField {
+    margin: 0px 20px;
+}
+
+.rightField {
+}
+
+.admin-db-form textarea {
+    max-width: 100%;
+}
+
+.three-column {
+    width: 100%;
+    display: block;
+    min-height: 200px;
+}
+
+.font-smaller {
+    font-size: 70%;
+}
+
+.panel-heading span:after {
+    content: " | ";
+}
+
+.panel-heading span.arrowRight:after {
+    content: "\2192";
+}
+
+.panel-heading small {
+    color: #666;
+}
+
+.marginTop10 {
+    margin-top: 10px;
+}
+
+.collectionsHeader {
+    border-bottom: 1px solid #eee;
+}
+
+.overrideHasSubHeader {
+    margin-bottom: 0px !important;
+    border: 0px !important;
+}
+
+h2.page-subheader {
+    margin: 0;
+    font-size: 1.4em;
+}
+
+db-doc-name, db-collection-name {
+    font-weight: bold;
+    color: #000000;
+}
+
+.table-collection tr {
+    font-size: 0.8em;
+}
+
+.table-collection thead tr th {
+    text-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.text-center {
+    text-align: center;
+}
+/* eof_bo - created */

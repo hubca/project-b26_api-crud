@@ -1,0 +1,38 @@
+@(collName: String, oDocs: Option[Seq[models.db.OurMongo]])
+
+<table class="table datatable table-striped table-bordered table-hover cell-border display table-collection" id="dataTable">
+    <thead>
+        <tr role="row">
+            <th>id</th>
+            <th>usr id</th>
+            <th>session id</th>
+            <th>rst id</th>
+            <th>user skill level</th>
+            <th>num of resort visits</th>
+            <th>last visit selection</th>
+            <th>last visit date</th>
+            <th>last group type</th>
+            <th class="no-sort"></th>
+            <th class="no-sort"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(docs <- oDocs) {
+            @for((doc, idx) <- docs.zipWithIndex) {
+                <tr class="@doc.oddOrEvenTableRow(idx)" role="row">
+                    <td>@doc.idAsStringLast6(doc._id)</td>
+                    <td>@doc.idAsStringLast6(doc.usrId)</td>
+                    <td>@doc.sessionId</td>
+                    <td>@doc.idAsStringLast6(doc.rstId)</td>
+                    <td>@doc.userSkillLevel</td>
+                    <td>@doc.numOfResortVisits</td>
+                    <td>@doc.lastVisitAsObj.selection</td>
+                    <td>@doc.lastVisitAsObj.dateAsString</td>
+                    <td>@doc.lastGroupType</td>
+
+                    @views.html.db.actionColumns(collName, doc._id)(1)
+                </tr>
+            }
+        }
+    </tbody>
+</table>

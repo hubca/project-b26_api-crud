@@ -1,0 +1,22 @@
+@import helper._
+
+@(queryType: String, thisForm: Form[models.db.CtyMongo], oOptsMap: Option[Map[String, Seq[(String, String)]]])(implicit request: RequestHeader, messagesProvider: MessagesProvider)
+
+
+@views.html.generic.form.fieldset("3", "well") {
+    @inputText(thisForm("varData_e.adminCreatedId"), '_label -> "modified by admin id", 'class -> "form-control", 'id -> "adminModifiedId", 'name -> "adminModifiedId", 'size -> 5, 'placeholder -> "e.g. 1", 'disabled -> "disabled")
+}
+
+@views.html.generic.form.fieldset("3", "well") {
+    @inputText(thisForm("varData_e.dateCreated"), '_label -> "date created", 'class -> "form-control", 'id -> "dateCreated", 'name -> "dateCreated", 'size -> 5, 'placeholder -> "e.g. 2017-11-22", 'disabled -> "disabled")
+}
+
+@views.html.generic.form.fieldset("3", "well") {
+    @inputText(thisForm("varData_e.adminModifiedId"), '_label -> "modified by admin id", 'class -> "form-control", 'id -> "adminModifiedId", 'name -> "adminModifiedId", 'size -> 5, 'placeholder -> "e.g. 1", 'disabled -> "disabled")
+}
+
+@views.html.generic.form.fieldset("3", "well") {
+    @inputText(thisForm("varData_e.lastModified"), '_label -> "last modified", 'class -> "form-control", 'id -> "lastModified", 'name -> "lastModified", 'size -> 5, 'placeholder -> "e.g. 2017-11-28", 'disabled -> "disabled")
+}
+
+@views.html.generic.form.formAction("btn-action", "1", queryType)

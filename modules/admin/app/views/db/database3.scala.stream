@@ -1,0 +1,4 @@
+@(collName: String)(form: HtmlStream, collection: HtmlStream)
+
+@form
+@collection

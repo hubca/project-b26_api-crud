@@ -1,0 +1,8 @@
+@(panelClass: String, panelHeading: String, collapseId: String)(content: Html)
+
+<div class="panel @panelClass">
+    @panelHeaderCollapsible(panelHeading, collapseId)
+    <div id="@collapseId" class="panel-collapse collapse in">
+        @panelBody(content)
+    </div>
+</div>

@@ -1,0 +1,34 @@
+@(collName: String, oDocs: Option[Seq[models.db.CtyMongo]])
+
+<table class="table datatable table-striped table-bordered table-hover cell-border display table-collection" id="dataTable">
+    <thead>
+        <tr role="row">
+            <th>id</th>
+            <th>country name</th>
+            <th>country code</th>
+            <th>continent</th>
+            <th>hemisphere</th>
+            <th>language arr</th>
+            <th>currency code</th>
+            <th class="no-sort"></th>
+            <th class="no-sort"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(docs <- oDocs) {
+            @for((doc, idx) <- docs.zipWithIndex) {
+                <tr class="@doc.oddOrEvenTableRow(idx)" role="row">
+                    <td>@doc.idAsStringLast6(doc._id)</td>
+                    <td>@doc.oVarDataAsObj.countryName</td>
+                    <td class="text-center">@doc.oVarDataAsObj.oCountryCodeAsString</td>
+                    <td>@doc.oVarDataAsObj.oContinentAsString</td>
+                    <td class="text-center">@doc.oVarDataAsObj.oHemisphereAsString</td>
+                    <td>@doc.oVarDataAsObj.oLanguagesArrAsString</td>
+                    <td class="text-center">@doc.oVarDataAsObj.oCurrencyCodeAsString</td>
+
+                    @views.html.db.actionColumns(collName, doc._id)(1)
+                </tr>
+            }
+        }
+    </tbody>
+</table>

@@ -1,0 +1,38 @@
+@import helper._
+
+@(queryType: String, thisForm: Form[models.db.RstMongo], oOptsMap: Option[Map[String, Seq[(String, String)]]])(implicit request: RequestHeader, messagesProvider: MessagesProvider)
+
+
+@views.html.generic.form.fieldset("3", "well") {
+
+    @inputText(thisForm("name"), '_label -> "name", 'class -> "form-control", 'id -> "name", 'name -> "name", 'size -> 30, 'placeholder -> "e.g. Chamonix", 'required -> "required")
+
+    @for(optsMap <- oOptsMap) {
+        @select(thisForm("location_e.countryName"), options = optsMap("countryNames"), '_label -> "country name", 'class -> "form-control", 'id -> "location_e.countryName", 'name -> "location_e.countryName")
+        @select(thisForm("location_e.region_ee.id"), options = optsMap("regions"), '_label -> "region", 'class -> "form-control", 'id -> "location_e.region_ee.id", 'name -> "location_e.region_ee.id")
+    }
+
+}
+
+@views.html.generic.form.fieldset("3", "well") {
+
+    @inputText(thisForm("location_e.geoLocation_ee.coordinates[1]"), '_label -> "latitude", 'class -> "form-control", 'id -> "location_e.geoLocation_ee.coordinates[1]", 'name -> "location_e.geoLocation_ee.coordinates[1]", 'size -> 30, 'placeholder -> "e.g. 45.923733", 'required -> "required")
+    @inputText(thisForm("location_e.geoLocation_ee.coordinates[0]"), '_label -> "longitude", 'class -> "form-control", 'id -> "location_e.geoLocation_ee.coordinates[0]", 'name -> "location_e.geoLocation_ee.coordinates[0]", 'size -> 30, 'placeholder -> "e.g. 6.870129", 'required -> "required")
+
+}
+
+@views.html.generic.form.fieldset("3", "well") {
+
+    @inputText(thisForm("season_e.last_ee.open"), '_label -> "last date open", 'class -> "form-control", 'id -> "season_e.last_ee.open", 'name -> "season_e.last_ee.open", 'size -> 20, 'placeholder -> "e.g. 2016-11-05", 'required -> "required")
+    @inputText(thisForm("season_e.last_ee.closed"), '_label -> "last date closed", 'class -> "form-control", 'id -> "season_e.last_ee.closed", 'name -> "season_e.last_ee.closed", 'size -> 20, 'placeholder -> "e.g. 2017-04-01", 'required -> "required")
+
+}
+
+@views.html.generic.form.fieldset("3", "well") {
+
+    @inputText(thisForm("season_e.next_ee.open"), '_label -> "next date open", 'class -> "form-control", 'id -> "season_e.next_ee.open", 'name -> "season_e.next_ee.open", 'size -> 20, 'placeholder -> "e.g. 2017-12-02", 'required -> "required")
+    @inputText(thisForm("season_e.next_ee.closed"), '_label -> "next date closed", 'class -> "form-control", 'id -> "season_e.next_ee.closed", 'name -> "season_e.next_ee.closed", 'size -> 20, 'placeholder -> "e.g. 2018-04-10", 'required -> "required")
+
+}
+
+@views.html.generic.form.formAction("btn-action", "1", queryType)

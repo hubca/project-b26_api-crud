@@ -1,0 +1,43 @@
+@import helper._
+
+@(action: String, thisForm: Form[models.db.RstMongo])(implicit request: RequestHeader, messagesProvider: MessagesProvider)
+
+
+@views.html.generic.form.fieldset("3", "well") {
+
+    @inputText(thisForm("liftTypes_e.gondolaLiftsNum"), '_label -> "gondola lifts", 'class -> "form-control", 'id -> "liftTypes_e.gondolaLiftsNum", 'name -> "liftTypes_e.gondolaLiftsNum", 'size -> 5, 'placeholder -> "e.g. 4", 'required -> "required")
+    @inputText(thisForm("liftTypes_e.buttonLiftsNum"), '_label -> "button lifts", 'class -> "form-control", 'id -> "liftTypes_e.buttonLiftsNum", 'name -> "liftTypes_e.gondolaLiftsNum", 'size -> 5, 'placeholder -> "e.g. 6", 'required -> "required")
+    @inputText(thisForm("liftTypes_e.chairLiftsNum"), '_label -> "chairlifts", 'class -> "form-control", 'id -> "liftTypes_e.chairLiftsNum", 'name -> "liftTypes_e.chairLiftsNum", 'size -> 5, 'placeholder -> "e.g. 31", 'required -> "required")
+    @inputText(thisForm("liftTypes_e.cableCarLiftsNum"), '_label -> "cable cars", 'class -> "form-control", 'id -> "liftTypes_e.cableCarLiftsNum", 'name -> "liftTypes_e.cableCarLiftsNum", 'size -> 5, 'placeholder -> "e.g. 9", 'required -> "required")
+    @inputText(thisForm("liftTypes_e.movingCarpetLiftsNum"), '_label -> "moving carpet lifts", 'class -> "form-control", 'id -> "liftTypes_e.movingCarpetLiftsNum", 'name -> "liftTypes_e.movingCarpetLiftsNum", 'size -> 5, 'placeholder -> "e.g. 0", 'required -> "required")
+
+}
+
+@views.html.generic.form.fieldset("3", "well") {
+
+    @repeatWithIndex(thisForm("liftPassPrices_e.areaValidArr"), min = 3) { (area, idx) =>
+        @inputText(area, '_label -> ("area valid #" + (idx +1)), 'class -> "form-control", 'placeholder -> "e.g. Brevent-Flegere")
+    }
+    @inputText(thisForm("liftPassPrices_e.pricesValidFrom"), '_label -> "prices valid from", 'class -> "form-control", 'id -> "liftPassPrices_e.pricesValidFrom", 'name -> "liftPassPrices_e.pricesValidFrom", 'size -> 15, 'placeholder -> "e.g. 2017-11-05", 'required -> "required")
+    @inputText(thisForm("liftPassPrices_e.pricesValidUntil"), '_label -> "prices valid until", 'class -> "form-control", 'id -> "liftPassPrices_e.pricesValidUntil", 'name -> "liftPassPrices_e.pricesValidUntil", 'size -> 15, 'placeholder -> "e.g. 2018-05-01", 'required -> "required")
+
+}
+
+@views.html.generic.form.fieldset("3", "well") {
+
+    @inputText(thisForm("liftPassPrices_e.priceChildWeekDay_usd"), '_label -> "child week day price (USD)", 'class -> "form-control", 'id -> "liftPassPrices_e.priceChildWeekDay_usd", 'name -> "liftPassPrices_e.priceChildWeekDay_usd", 'size -> 8, 'placeholder -> "e.g. 25.50", 'required -> "required")
+    @inputText(thisForm("liftPassPrices_e.priceChild6Day_usd"), '_label -> "adult week day price (USD)", 'class -> "form-control", 'id -> "liftPassPrices_e.priceAdultWeekDay_usd", 'name -> "liftPassPrices_e.priceAdultWeekDay_usd", 'size -> 8, 'placeholder -> "e.g. 49.95", 'required -> "required")
+    @inputText(thisForm("liftPassPrices_e.priceAdultWeekDay_usd"), '_label -> "child 6 day price (USD)", 'class -> "form-control", 'id -> "liftPassPrices_e.priceChild6Day_usd", 'name -> "liftPassPrices_e.priceChild6Day_usd", 'size -> 8, 'placeholder -> "e.g. 145.85", 'required -> "required")
+    @inputText(thisForm("liftPassPrices_e.priceAdult6Day_usd"), '_label -> "adult 6 day price (USD)", 'class -> "form-control", 'id -> "liftPassPrices_e.priceAdult6Day_usd", 'name -> "liftPassPrices_e.priceAdult6Day_usd", 'size -> 8, 'placeholder -> "e.g. 220.80", 'required -> "required")
+
+}
+
+@views.html.generic.form.fieldset("3", "well") {
+
+    @repeatWithIndex(thisForm("liftPassPrices_e.priceDeepLinkArr"), min = 4) { (link, idx) =>
+        @inputText(link, '_label -> ("vendor deep link #" + (idx +1)), 'class -> "form-control", 'placeholder -> "e.g. http://www.ski-lift.com/etc")
+    }
+
+}
+
+@views.html.generic.form.formAction("btn-action", "3", action)

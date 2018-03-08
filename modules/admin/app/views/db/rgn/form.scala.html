@@ -1,0 +1,8 @@
+@import helper._
+@(collName: String, queryType: String)(thisForm: Form[models.db.RgnMongo], oId: Option[reactivemongo.bson.BSONObjectID])(oOptsMap: Option[Map[String, Seq[(String, String)]]] = None)(activeTabIdx: Int, oTabNames: Option[Seq[String]])(implicit request: RequestHeader, messagesProvider: MessagesProvider)
+
+@getFormTabList = @{
+    List(formFields.tab1(queryType, thisForm, oOptsMap))
+}
+
+@views.html.db.inputForm(collName, queryType)(oId, oOptsMap)(getFormTabList, activeTabIdx)

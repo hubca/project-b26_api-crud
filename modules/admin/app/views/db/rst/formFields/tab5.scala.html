@@ -1,0 +1,18 @@
+@import helper._
+
+@(action: String, thisForm: Form[models.db.RstMongo])(implicit request: RequestHeader, messagesProvider: MessagesProvider)
+
+@repeatWithIndex(thisForm("localIataArr_e"), min = 4) { (localIata, idx) =>
+
+    @views.html.generic.form.fieldset("3", "well") {
+
+        @inputText(thisForm("localIataArr_e["+idx+"].iataCode"), '_label -> ("iata code #" + (idx +1)), 'class -> "form-control", 'placeholder -> "e.g. GVA")
+        @inputText(thisForm("localIataArr_e["+idx+"].distance_km"), '_label -> ("distance (km) #" + (idx +1)), 'class -> "form-control", 'placeholder -> "e.g. 72.5")
+        @inputText(thisForm("localIataArr_e["+idx+"].travelTime_mins"), '_label -> ("travel time (mins) #" + (idx +1)), 'class -> "form-control", 'placeholder -> "e.g. 85")
+        @inputText(thisForm("localIataArr_e["+idx+"].roundTripCosts_usd"), '_label -> ("round trip costs (usd) #" + (idx +1)), 'class -> "form-control", 'placeholder -> "e.g. 465.95")
+
+    }
+
+}
+
+@views.html.generic.form.formAction("btn-action", "5", action)

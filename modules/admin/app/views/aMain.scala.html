@@ -1,0 +1,36 @@
+@(title: String, pageHeader: String, scripts: Html, stylesheets: Html)(content: Html)
+
+<html lang="en">
+    <head>
+        <title>@title</title>
+        <link rel="stylesheet" media="screen" href="@admin.routes.Assets.at("admin/scss/admin.css")">
+
+        <!-- Load in any custom stylesheets -->
+        @stylesheets
+    </head>
+    <body>
+
+       <div id="wrapper">
+           @navigation()
+           <div id="page-wrapper">
+               @generic.pageHeader(pageHeader)
+               @content
+           </div>
+       </div>
+
+       <!-- jQuery -->
+       <script src="@admin.routes.Assets.at("jquery/jquery.min.js")"></script>
+
+       <!-- Bootstrap Core JavaScript -->
+       <script src="@admin.routes.Assets.at("bootstrap/js/bootstrap.min.js")"></script>
+
+       <!-- Metis Menu Plugin JavaScript -->
+       <script src="@admin.routes.Assets.at("metisMenu/metisMenu.min.js")"></script>
+
+       @scripts
+
+        <!-- Custom Theme JavaScript -->
+       <script src="@admin.routes.Assets.at("admin/javascripts/layout.js")"></script>
+
+    </body>
+</html>

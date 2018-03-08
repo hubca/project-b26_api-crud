@@ -1,0 +1,36 @@
+@(collName: String, oDocs: Option[Seq[models.db.RstMongo]])
+
+<table class="table datatable table-striped table-bordered table-hover display no-footer table-collection" id="dataTable">
+    <thead>
+        <tr role="row">
+            <th>id</th>
+            <th>name</th>
+            <th>piste area (km2)</th>
+            <th>highest altitude (m)</th>
+            <th>avg annual visitors</th>
+            <th>avg visitor density per km2 per day</th>
+            <th>short description</th>
+            <th>full description</th>
+            <th class="no-sort"></th>
+            <th class="no-sort"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(docs <- oDocs) {
+            @for((doc, idx) <- docs.zipWithIndex) {
+                <tr class="@doc.oddOrEvenTableRow(idx)" role="row">
+                    <td>@doc.idAsStringLast6(doc._id)</td>
+                    <td>@doc.name</td>
+                    <td>@doc.metricsAndVisitorsAsObj.pisteArea_km2</td>
+                    <td>@doc.metricsAndVisitorsAsObj.highestAltitude_m</td>
+                    <td>@doc.metricsAndVisitorsAsObj.avgAnnualVisitors</td>
+                    <td>@doc.metricsAndVisitorsAsObj.avgVistorDensityPerKm2PerDayAsObj</td>
+                    <td>@doc.descriptionAsObj.short</td>
+                    <td>@doc.descriptionAsObj.full</td>
+
+                    @views.html.db.actionColumns(collName, doc._id)(4)
+                </tr>
+            }
+        }
+    </tbody>
+</table>

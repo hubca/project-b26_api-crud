@@ -1,0 +1,6 @@
+@(labelName: String, rows: String, cols: String, inputClass: String, idName: String, value: String, placeholder: String, required: String)
+
+<div class="form-group">
+    <label>@labelName</label>
+    <textarea rows="@rows" cols="@cols" class="@inputClass" id="@idName" name="@idName" placeholder="e.g. @placeholder" @required>@value</textarea>
+</div>

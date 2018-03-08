@@ -1,0 +1,8 @@
+@import helper._
+@(collName: String, oDocs: Option[Seq[models.db.CtyMongo]])(activeTabIdx: Int)(implicit request: RequestHeader, messagesProvider: MessagesProvider)
+
+@getDocsTabList = @{
+    List(docs.tab1(collName, oDocs), docs.tab2(collName, oDocs))
+}
+
+@views.html.db.collection(collName)(getDocsTabList, activeTabIdx)

@@ -1,0 +1,39 @@
+@import helper._
+@import views.generic.form.FormHelper._
+
+@(queryType: String, thisForm: Form[models.db.OurMongo], oOptsMap: Option[Map[String, Seq[(String, String)]]])(implicit request: RequestHeader, messagesProvider: MessagesProvider)
+
+@views.html.generic.form.fieldset("4", "well") {
+
+    @inputText(thisForm("usrId"), '_label -> "userId", 'class -> "form-control", 'id -> "usrId", 'name -> "usrId", 'size -> 30, 'placeholder -> "e.g. 5a28258d9830b7614f566cc7")
+    @inputText(thisForm("sessionId"), '_label -> "sessionId", 'class -> "form-control", 'id -> "sessionId", 'name -> "sessionId", 'size -> 30, 'placeholder -> "e.g. 9dsadslm409e32")
+    @inputText(thisForm("rstId"), '_label -> "rstId", 'class -> "form-control", 'id -> "rstId", 'name -> "rstId", 'size -> 30, 'placeholder -> "e.g. 59ea36d3fdc2ce3d73c4be94", 'required -> "required")
+
+}
+
+@for(optsMap <- oOptsMap) {
+
+    @views.html.generic.form.fieldset("4", "well") {
+
+        @defining(Map("_label" -> "last visit", "name" -> "lastVisit_e.selection")) { lastVisitMap =>
+
+            @views.html.generic.form.radioWithInputTextGroup(thisForm("lastVisit_e.selection"), optsMap("lastVisits"), "undisclosed")(lastVisitMap) {
+                @inputText(thisForm("lastVisit_e.date"), '_label -> "", 'class -> "form-control", 'id -> camelize(optsMap("lastVisits")(1)._1), 'name -> "lastVisit_e.date", 'size -> 10, 'placeholder -> getPlaceholder("lastVisit_e.date"), 'disabled -> "disabled")
+                @select(thisForm("lastVisit_e.date"), options = optsMap("lastVisitSeasons"), '_label -> "", 'class -> "form-control", 'id -> camelize(optsMap("lastVisits")(2)._1), 'name -> "lastVisit_e.date", 'disabled -> "disabled")
+            }
+
+        }
+
+    }
+
+    @views.html.generic.form.fieldset("4", "well") {
+
+        @select(thisForm("userSkillLevel"), options = optsMap("userSkillLevels"), '_label -> "user skill level", 'class -> "form-control", 'id -> "userSkillLevel", 'name -> "userSkillLevel")
+        @inputText(thisForm("numOfResortVisits"), '_label -> "num of resort visits", 'class -> "form-control", 'id -> "numOfResortVisits", 'name -> "numOfResortVisits", 'size -> 30, 'placeholder -> "e.g. 2", 'required -> "required")
+        @select(thisForm("lastGroupType"), options = optsMap("lastGroupTypes"), '_label -> "last group type", 'class -> "form-control", 'id -> "lastGroupType", 'name -> "lastGroupType")
+
+    }
+
+}
+
+@views.html.generic.form.formAction("btn-action", "1", queryType)

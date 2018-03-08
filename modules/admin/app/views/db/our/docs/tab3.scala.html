@@ -1,0 +1,28 @@
+@(collName: String, oDocs: Option[Seq[models.db.OurMongo]])
+
+<table class="table datatable table-striped table-bordered table-hover cell-border display table-collection" id="dataTable">
+    <thead>
+        <tr role="row">
+            <th>id</th>
+            <th>admin modified id</th>
+            <th>date created</th>
+            <th>last modified</th>
+            <th class="no-sort"></th>
+            <th class="no-sort"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(docs <- oDocs) {
+            @for((doc, idx) <- docs.zipWithIndex) {
+                <tr class="@doc.oddOrEvenTableRow(idx)" role="row">
+                    <td>@doc.idAsStringLast6(doc._id)</td>
+                    <td class="text-center">@doc.adminModifiedIdAsString</td>
+                    <td>@doc.dateCreatedAsString</td>
+                    <td>@doc.lastModifiedAsString</td>
+
+                    @views.html.db.actionColumns(collName, doc._id)(3)
+                </tr>
+            }
+        }
+    </tbody>
+</table>

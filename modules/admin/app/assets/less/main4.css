@@ -1,0 +1,75 @@
+/*
+ * bosis created 11/8/17
+ */
+ body {
+    padding: 0em;
+    margin: 5em;
+    position: relative;
+    font-family: Montserrat, Arial, Helvetica;
+}
+
+table tr td {
+    vertical-align: top;
+}
+
+.resort {
+    color: #073c5e;
+}
+
+.rImage {
+    position: relative;
+    display: block;
+    width: 500px;
+    height: 357px;
+    padding: 0px;
+}
+
+.rAttribute {
+    position: absolute;
+    margin: 0.75em 1em;
+    padding: 0;
+    color: white;
+    font-size: 1.9em;
+    text-shadow: 1px 1px 10px #5e3b07, -1px 1px 10px #5e3b07, 1px -1px 10px #5e3b07, -1px -1px 10px #5e3b07, 0px 1px 10px #5e3b07, 0px -1px 10px #5e3b07, -1px 0px 10px #5e3b07, 1px 0px 10px #5e3b07;
+}
+
+.rAttribute small {
+    margin-left: 5px;
+}
+
+.top {
+    top: 0em;
+}
+.bottom {
+    bottom: 0em;
+}
+.left {
+    left: 0em;
+}
+.right {
+    right: 0em;
+}
+
+.resort #alta-badia {
+    background: url("../images/resorts/alta-badia-IT_1.jpg") no-repeat;
+}
+
+/*
+ * bosis created 11/8/17 - db
+ */
+
+form {
+    text-align: center;
+    padding-bottom: 1.5em;
+}
+
+.form-fieldset h3 {
+    color: #F8741B;
+}
+
+.form-title {
+    color: #F8741B;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-decoration: none;
+}

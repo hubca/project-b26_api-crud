@@ -73,3 +73,9 @@ form {
     font-weight: bold;
     text-decoration: none;
 }
+
+.blue-italic {
+    color: blue;
+    font-style: italic;
+    font-weight: normal;
+}
